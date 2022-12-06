@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://raw.githubusercontent.com/LeaVerou/prefixfree/gh-pages/prefixfree.min.js"></script>
+    <style>
+        * { padding: 0; margin: 0; }
+        body, html { width: 100%; }
+        .wrap { text-align: center; }
+        li { list-style: none; }
+
+        .mask1 img {  -webkit-mask-image: url(./mask.png); mask-image: url(./mask.png); }
+
+        .mask2 img { animation-name: ani; animation-duration: 2s; -webkit-mask-image: url(./mask.png); mask-image: url(./mask.png); mask-size: 0em;}
+        @keyframes ani {
+        0% {  mask-size: 100%; }
+        100% { mask-position: top right;}
+        }   
+
+        #clip1 { clip-path: circle(); animation-name: ani3; animation-duration: 1.5s; animation-iteration-count: infinite; animation-direction: alternate;}
+        @keyframes ani3 {
+            0% { clip-path: circle(50%);}
+            100% { clip-path: circle(100%);}
+        }
+
+        #clip2 { animation-name: ani1; animation-duration: 1.5s; animation-iteration-count: infinite; animation-direction: alternate;}
+        @keyframes ani1 {
+            0% { clip-path:circle( 82%)}
+            100% { clip-path:margin-box 3px solid #333; }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="mask1" id="mask1"><img src="./jungle.jpg" alt="마스크"></div>
+
+        <div class="mask2" id="clip1"><img src="./jungle.jpg" alt="마스크"></div>
+
+        <div class="mask3" id="clip2"><img src="./jungle.jpg" alt="마스크"></div>
+
+        <div class="mask4" id="clip3"><img src="./jungle.jpg" alt="마스크"></div>
+    </div>
+    </div>
+</body>
+</html>

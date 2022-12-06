@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./jquery-1.12.4.js"></script>
+</head>
+<body>
+    <section class="container">
+        <h1>checkbox checked not:checked</h1>
+        <div>
+            <input type="checkbox" name="fruit"/><span>사과</span>
+        </div>
+        <div>
+            <input type="checkbox" name="fruit"/><span>바나나</span>
+        </div>
+        <div>
+            <input type="checkbox" name="fruit"/><span>오렌지</span>
+        </div>
+    </section>
+    <br><hr><br>
+    <script>
+    $(document).ready(function(){
+        $("input + span").css("backgroundColor","red");
+        
+        $("input[type=checkbox]:checked + span").css("color","red");
+        $("input[type=checkbox]:not(:checked) + span").css("color","white");
+
+        $("input[type=checkbox]").click(function(){
+            $("input[type=checkbox]:checked + span").css("color","red");
+            $("input[type=checkbox]:not(:checked) + span").css("color","white");
+        });
+    });
+
+    </script>
+
+</body>
+</html>

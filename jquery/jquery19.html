@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./jquery-1.12.4.js"></script>
+    <style>
+    img { width: 600px; height: auto;}
+    .addclass { border: 10px solid#333; width: 400px; animation-delay: 10s  ;}
+    </style>
+</head>
+<body>
+    <section class="container">
+        <h1>sdfasdfasdf</h1>
+        <article class="data">
+            <button>버튼</button>
+            <img src="./img1.jpg" alt="l" class="img1">
+            <img src="./img2.jpg" alt="l" class="img1">
+            <img src="./img3.jpg" alt="l" class="img2">
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+    $(function(){
+        var sw = true;
+        $("button").click(function(){
+            if(sw){
+                $(".img1").addClass("addclass");
+            } else {
+                $(".img1").removeClass("addclass");
+            }   sw = !sw;
+        });
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * { padding: 0; margin: 0; }
+        .wrap { clear: both; width: 100%; height: 100%;}
+
+        .lst1 { list-style: none; text-align: center; }
+        .page1 { filter:noen; }
+        .page2 { filter:bulr(5px); }
+        .page3 { filter:brightness(200%); }
+        .page4 { filter: contrast(200%); }
+        .page5 { filter: drop-shadow(8px 8px 10px gray); }
+        .page6 { filter: grayscale(); }
+        .page7 { filter: hue-rotate(90deg); }
+        .page8 { filter: invert(100%); }
+        .page9 { filter: opacity(30%); }
+        .page10 { filter: saturate(8); }
+        .page11 { filter: sepia(100%); }
+        .page12 { filter: contrast(200%) grayscale(150%); }
+
+        .page13 { height:80px; width:80px; position:absolute; animation:ani1 5s; }
+        .page13 img { animation-duration:initial; }
+        @keyframes ani1 {
+        0% { filter:noen;  }
+        10% { filter:bulr(5px); }
+        20% { filter:brightness(200%); }
+        30% { filter: contrast(200%); }
+        40% { filter: drop-shadow(8px 8px 10px gray); }
+        50% { filter: grayscale();  }
+        60% { filter: hue-rotate(90deg); }
+        70% { filter: invert(100%); }
+        80% { filter: opacity(30%); }
+        90% { filter: saturate(8); }
+        100% { filter: sepia(100%); }
+    }
+
+</style>
+</head>
+<body>
+<div class="wrap">
+    <section>
+        <ul class="lst1">
+            <h2>사진</h2>
+            <li class="page1"><img src="./css12.jpg" alt=""></li>
+            <li class="page2"><img src="./css12.jpg" alt=""></li>
+            <li class="page3"><img src="./css12.jpg" alt=""></li>
+            <li class="page4"><img src="./css12.jpg" alt=""></li>
+            <li class="page5"><img src="./css12.jpg" alt=""></li>
+            <li class="page6"><img src="./css12.jpg" alt=""></li>
+            <li class="page7"><img src="./css12.jpg" alt=""></li>
+            <li class="page8"><img src="./css12.jpg" alt=""></li>
+            <li class="page9"><img src="./css12.jpg" alt=""></li>
+            <li class="page10"><img src="./css12.jpg" alt=""></li>
+            <li class="page11"><img src="./css12.jpg" alt=""></li>
+            <li class="page12"><img src="./css12.jpg" alt=""></li>
+            <li class="page13"><img src="./css12.jpg" alt=""></li>
+        </ul>
+    </section>
+</div>
+</body>
+</html>

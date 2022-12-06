@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./jquery-1.12.4.js"></script>
+</head>
+<body>
+    <h1>dd</h1>
+    <section class="container">
+        <p>
+            <em>11</em>
+            <em>22</em>
+            <span><em>33</em></span>
+        </p>
+        <div>
+            <ems>44</ems>
+            <ems>55</ems>
+            <span><ems>66</ems></span>
+        </div>
+    </section><br><hr><br>
+    <div>
+        <span></span>
+        <span></span>
+    </div>
+    <div>
+        <h2>후손</h2>
+        <span>result1</span>
+        <span class="result1"></span>
+        <br><hr><br>
+        <h2>자식</h2>
+        <span>result2</span>
+        <span class="result2"></span>
+        <br><hr><br>
+        <h2>후손을 텍스트로</h2>
+        <span>result3</span>
+        <span class="result3"></span>
+    </div>
+    <script>
+    var res1 = "";
+    var res2 = "";
+    var res3 = "";
+    //후손
+    $(function(){
+        $("p em").each(function(){
+            res1 += $(this).text();
+        });
+        $(".result1").text(res1);
+
+    });
+    
+    //자식
+    $(function(){
+        $("div > em").each(function(){
+            res2 += $(this).text();
+        });
+        $(".result2").text(res2);
+
+    });
+
+    $(function(){
+        $("div ems").each(function(){
+            res3 += $(this).html();
+        });
+        $(".result3").text(res3);
+
+    });
+    </script>
+</body>
+</html>

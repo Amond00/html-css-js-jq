@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./jquery-1.12.4.js"></script>
+    <style>
+        li { list-style: none;}
+    </style>
+</head>
+<body>
+    <section class="container">
+        <h1>속성 선택자 응용</h1>
+        <div id="imgList">
+            <img src="./img1.jpg" alt="">
+            <img src="./img2.png" alt="">
+            <img src="./img3.gif" alt="">
+        </div>
+        <nav id="gnb">
+            <ul>
+                <li><a href="company.jsp">회사소개</a></li>
+                <li><a href="proList.do">제품</a></li>
+                <li><a href="serList.jsp?serno=1">서비스</a></li>
+                <li><a href="boardList.do">커뮤니티</a></li>
+                <li><a href="consulList.do?sid=han">온라인상담</a></li>
+            </ul>
+        </nav>
+        <hr><br><hr>
+        <nav id="quick">
+            <ul class="menu"></ul>
+        </nav>
+    </section>
+    <br><hr><br>
+    <script>
+    $(document).ready(function(){
+        $("#imgList img").width("200px").height("300px");
+        $("#imgList img[src$='.jpg']").css("border","2px solid red");
+        $("#imgList img[src$='.png']").css("border","2px solid yellow");
+        $("#imgList img[src$='.gif']").css("border","2px solid blue");
+
+        $("#gnb a[href*='.do']").each(function(){
+            $("#quick .menu").append("<li><a href='"+$(this).attr("href")+"'>"+$(this).text()+"</a></li>");
+        });
+    });
+    </script>
+</body>
+</html>

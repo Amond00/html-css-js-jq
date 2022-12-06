@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./jquery-1.12.4.js"></script>
+</head>
+<body>
+    <section class="container">
+        <h1>df</h1>
+        <div>
+            <em>hello</em>
+            <em>jquery</em>
+            <p><em>forever</em></p>
+        </div>
+        <span>
+            <em>goodbye</em>
+            <em>js</em>
+            <p><em>plugins</em></p>
+        </span>
+    </section>
+    <script>
+    $(function(){
+    $("div > em").css("color","white");
+    $("div em").css("backgroundColor","pink");
+    });
+    </script>
+</body>
+</html>

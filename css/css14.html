@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * { margin: 0; padding: 0; }
+        body, html { width:100%; }
+        ul { list-style: none; }
+        a { text-decoration: none; }
+        .container:after { content:""; clear:both; display:block; } 
+        ul li { display: block;}
+
+        .shape2 { border: 5px solid #333 ; background-color: deeppink; transform-origin: 50% 100%; animation-name: ani2; animation-duration: 2.5s; animation-fill-mode: both;
+        animation-iteration-count: infinite;
+        }
+        @keyframes ani2 {
+            0% { transform: skew(0deg) translateX(0px);}
+            50% { transform: skew(60deg) translateX(500px);}
+            100% { transform: skew(-60deg) translateX(0px);}
+        }
+        
+        #page3 .container { margin-top: 100px; padding-top: 100px; }
+        .box { animation-name: box1; animation-duration: 4s; animation-iteration-count: infinite; animation-fill-mode: both; 
+            transform: rotateX(0deg) rotateY('0deg') rotateZ('0deg'); transform-style: preserve-3d; transform-origin: 100px 100px;
+        }
+        @keyframes box1 {
+            0% { transform: rotateX('0deg') rotateY('0deg') rotateZ('0deg');}
+            100% { transform: rotateX('720deg') rotateY('720deg') rotateZ('720deg');}
+        }
+
+
+        .box span { display: block; width: 200px; height: 200px; position: absolute; }
+        .box .itme1 { background-color: gold; transform: rotateY(0deg) translate(0px,0px,-100px); }
+        .box .itme2 { background-color: silver; transform: rotateY(0deg) translate(0px,0px,-100px); }
+        .box .itme3 { background-color: rebeccapurple; transform: rotateY(0deg) translate(0px,0px,-100px); }
+        .box .itme4 { background-color: firebrick; transform: rotateY(0deg) translate(0px,0px,-100px); }
+        .box .itme5 { background-color: darkturquoise; transform: rotateY(0deg) translate(0px,0px,-100px); }
+        .box .itme6 { background-color: brown; transform: rotateY(0deg) translate(0px,0px,-100px); }
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <ul>
+            <a class="shape2"></a>
+            <a class="shape3"></a>
+        </ul>
+    </div>
+    <div id="page3">
+        <div class="container ">
+            <ul class="box">
+                <li class="item1"></li>
+                <li class="item2"></li>
+                <li class="item3"></li>
+                <li class="item4"></li>
+                <li class="item5"></li>
+                <li class="item6"></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
