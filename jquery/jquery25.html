@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./jquery-1.12.4.js"></script>
+</head>
+<body>
+    <section class="container">
+        <button class="btn">버어튼</button>
+        <div id="dkdlel">ㅁㅁ1</div>
+        <div id="dkdlel">ㅁㅁ2</div>
+        <div id="dkdlel">ㅁㅁ3</div>
+        <div id="dkdlel" class="zfmfotm">ㅁㅁ4</div>
+        <div id="dkdlel" class="zfmfotm">ㅁㅁ5</div>
+        <div id="dkdlel" class="zfmfotm">ㅁㅁ6</div>
+        <div id="dkdlel">ㅁㅁ7</div>
+    </section>
+    <br><hr><br>
+    <script>
+    $(function(){
+        $(".btn").on("click", function(){
+            $("div+#dkdlel").css("backgroundColor","blue").filter(".zfmfotm").css("color","purple").not("zfmfotm").css("fontSize","35px");
+
+        });
+    });
+    </script>
+</body>
+</html>

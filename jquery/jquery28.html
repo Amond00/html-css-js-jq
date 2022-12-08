@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./jquery-1.12.4.js"></script>
+</head>
+<body>
+    <section class="container">
+        <h1>12341234</h1>
+        <article class="data"></article>
+        <button>바로 아래 형제 스타일 버튼</button>
+        <div id="first">first</div>
+        <span id="second" class="middle">
+            sibling1
+            <div id="child">child</div>
+        </span>
+        <div id="third" class="middle">sibling2</div>
+        <span id="fourth" class="middle">sibling3</span>
+        <span id="fifth" class="middle">sibling4</span>
+        <div id="sixth">last</div>
+        <button>바로 위 형제 스타일 버튼</button>
+    </section>
+    <br><hr><br>
+    <script>
+    $("button").click(function(){
+        $(this).next("div").css("backgroundColor","red");
+        $(this).prev("div").css("backgroundColor","orange");
+        $("div").next().css("backgroundColor","yellow");
+        $("div").nextAll(".middle").css({"backgroundColor":"green","fontSize":"5px"});
+        $("div").prev("span").css("backgroundColor","blue");
+        $("div").prevAll().css("fontSize","35px");
+    });
+    </script>
+</body>
+</html>
