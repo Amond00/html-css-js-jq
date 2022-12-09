@@ -4,15 +4,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>html 연습02 - 목록</title>
 </head>
 <body>
-    <div class="warp"> <!-- >:~안에 넣기,ul ol(비순서 목록)의 자식 무조건li, li안에 ul 또 넣을 수 있음(div.wrap:div스타일싸기)-->
+    <div class="wrap">
         <h2>비순서 목록</h2>
         <ul>
             <li>김도연
                 <ul>
-                    <li>행복</li>
+                    <li>행복
+                        <ul>
+                            <li>행복</li>
+                            <li>불행</li>
+                        </ul>
+                    </li>
                     <li>성공</li>
                     <li>노력</li>
                 </ul>
@@ -23,51 +28,54 @@
         </ul>
     </div>
     <div class="wrap">
+        <h2>순서형 목록</h2>
         <ol>
             <li>순대</li>
             <li>피자</li>
-            <li>라면</li>
             <li>치킨</li>
+            <li>떡볶이</li>
         </ol>
     </div>
     <div class="wrap">
-        <h2>나열형 목록</h2> <!-- dl>dt+dd*4 -->
+        <h2>나열형 목록</h2>
         <dl>
             <dt>사계절</dt>
             <dd>봄</dd>
             <dd>여름</dd>
             <dd>가을</dd>
             <dd>겨울</dd>
-        </dl>  
+        </dl>
     </div>
     <div class="wrap">
         <h2>선택형 목록</h2>
-        <select name="sel" id="sel">         <!--select>option*4 보통 홈태그 선택-->
+        <select name="sel" id="sel">
             <option value="">선택안함</option>
-            <option value="http://google.com">구글</option>
-            <option value="http://naver.com">네이버</option>
-            <option value="http://daum.net">다음</option>
+            <option value="http://www.google.com">구글</option>
+            <option value="http://www.naver.com">네이버</option>
+            <option value="http://www.daum.net">다음</option>
         </select>
     </div>
     <div class="wrap">
-        <details>                           <!--details>summary+div 디테일 요악+를 사용 펼침형 목록사용-->
+        <h2>펼침형 목록</h2>
+        <details>
             <summary>자세히 보기</summary>
             <div>
-                오늘 본시 수업 첫 번째 날~!
+                오늘은 본시 수업 첫 번째 날~!<br>
+                진부하고, 따분한 내용 부터<br>
+                쉽게 알 수 있는 내용 까지
             </div>
         </details>
-    </div>  
-    <div class="warp">
-        <h2>데이터 입력형 목록</h2> <!--빨간건 명령어 속성, input은 닫는 테그 없음-->
+    </div>
+    <div class="wrap">
+        <h2>데이터 입력형 목록</h2>
         <form>
             과목 : <input type="text" name="dept" list="deptlist"><br><br>
-            <deptlist id="deptlist>">
+            <datalist id="deptlist">
                 <option value="응용SW기초기술활용"></option>
                 <option value="개발자환경구축"></option>
                 <option value="프로그래밍언어활용"></option>
                 <option value="SQL활용"></option>
-            </deptlist>
-            
+            </datalist>
         </form>
     </div>
 </body>
