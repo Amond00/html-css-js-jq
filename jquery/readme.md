@@ -1580,6 +1580,363 @@ jQuery에 선택자로 원하는 요소를 선택하지 못하는 경우 선택�
 | $("선택자").scrollLeft() | 선택자로 선택한 요소의 가로 방향으로 스크롤된양을 가져옴 |
 | $("선택자").scrollTop() | 선택자로 선택한 요소의 세로 방향으로 스크롤된양을 가져옴 |
 
+
+### jQuery 자식 요소 추가하기
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 33 : 자식 엘리먼트 추가하기</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    div { float:left; width:50%; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //추가할 도시명
+        var cities = ["파주","고양","김포","의정부","화성","안산","세종"]
+        //추가할 카드명
+        var cards = ["뮤츠","리자몽","레쿠쟈","아르세우스","펄기아","디아루가"]
+        //문서가 로딩되면, 내가 살고 싶은 도시를 아이디가 cities_list에 추가 될 수 있도록 함
+        $(cities).each(function(index, value){
+            //$("#cities_list").append("<li>"+value+"</li>");
+            $("<li>"+value+"</li>").appendTo($("#cities_list"));
+        });
+        //$("#cities_list").append($("#data1"));
+        //문서가 로딩되면, 내가 갖고 싶은 카드를 아이디가 card_list에 추가 될 수 있도로 함
+        $.each(cards, function(index, value){
+            //$("#card_list").prepend("<li>"+value+"</li>");
+            $("<li>"+value+"</li>").prependTo($("#card_list"));
+        });
+        //$("#card_list").prepend($("#data1"));
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>자식 추가 메소드 - append(), appendTo(), prepend(), prependTo()</h1>
+        <article class="data">
+            <div>  <b> 내가 살고 싶은 도시 </b>  <ul id="cities_list"></ul> </div> 
+            <div>  <b> 내가 갖고 싶은 카드  </b>  <ul id="card_list"></ul> </div> 
+        </article>
+    </section><br><hr><br>
+    <article id="data1">데이터1</article>
+</body>
+</html>
+```
+
+### jQuery 형제 요소 추가하기
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 34 : 형제 엘리먼트 추가하기</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //문서가 로딩되면, <div class="container">니가 좋아하는 사람 : 김○태</div> 요소를 header의 이후(동생=next) 요소로 추가
+        //$("header").after("<div class='container'>니가 좋아하는 사람 : 김○태</div>");
+        $("<div class='container'>니가 좋아하는 사람 : 김○태</div>").insertAfter($("header"));
+        //$("header").after($("#data1"));
+        //문서가 로딩되면, <div class="container">니가 좋아하는 사람 : 김기○</div> 요소를 footer의 이전(형=prev) 요소로 추가
+        //$("footer").before("<div class='container'>니가 좋아하는 사람 : 김기○</div>");
+        $("<div class='container'>니가 좋아하는 사람 : 김기○</div>").insertBefore($("footer"));
+    });    
+    </script>
+</head>
+<body>
+    <header> <h1> 오늘은 불금~! 함께 공부할 </h1></header>
+    <section class="container">
+        <h1>형제 추가 메소드 - before(), insertBefore(), after(), insertAfter()</h1>
+    </section><br><hr><br>
+    <article id="data1">데이터1</article>
+    <footer> <h3> <em> copyright kkt </em> </h3> </footer>
+</body>
+</html>
+```
+
+### jQuery 부모 요소 추가하기
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 35 : 부모 엘리먼트 추가하기</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    .border { border: 2px solid red; margin:10px; padding:0px 30px;
+	float :left; width: 60px; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //p요소를 클릭하면, <div class='border'>불금 퐈이팅~!</div> 을 각 각의 p요소의 부모요소로 추가
+        $("p").click(function(){
+            $("p").wrap("<div class='border'>불금 퐈이팅~!</div>");
+            //$("p").wrapAll("<div class='border'>불금 퐈이팅~!</div>");
+        });        //$("p").wrap($(".indata1"));
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>부모 요소 추가 메소드 - wrap(), wrapAll()</h1>
+        <article class="data">
+            <h2>jQuery After Third part -> 312</h2>
+            <p>React -> 37</p>
+            <div>		<p>VUE.js -> 1</p>	</div>
+            <p>angular -> 54</p>
+            <p>polymer -> 3</p>
+        </article>
+    </section><br><hr><br>
+    <div class="indata1">데이터1</div>
+</body>
+</html>
+```
+
+### jQuery 엘리먼트 변경하기
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 36 : 엘리먼트 변경하기</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    .bd { border: 2px solid red;  }
+    .box { border:2px dashed blue; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //.box요소를 클릭하면, 클릭된 요소를 "<h1 class='bd'>Replace Text1</h1>"로 변경
+        $(".box").click(function(){
+            $(this).replaceWith("<h1 class='bd'>Replace Text1</h1>");
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>엘리먼트 변경 메소드 - replaceWith()</h1>
+        <article class="data">
+            <div class="box one">Youngeun's</div>
+            <div class="box two">jQuery</div>
+            <div class="box three">Mobile</div>
+            <div class="box four">Story</div>
+        </article>
+    </section><br><hr><br>
+    <div class="indata1">데이터1</div>
+</body>
+</html>
+```
+
+### jQuery 엘리먼트 비우기 및 제거하기
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 37 : 엘리먼트 비우기 및 제거하기</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    .bd { border: 2px solid red;  }
+    .box { border:2px dashed blue; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //아이디가 btn1인 요소를 클릭하면, p요소의 내용을 비운다.
+        $("#btn1").click(function(){
+            $("p").empty();
+        });
+        //아이디가 btn2인 요소를 클릭하면, li요소 중에서 비어 있는 요소를 제거한다.
+        $("#btn2").click(function(){
+            $("li:empty").remove();
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>엘리먼트 비우기 및 제거 메소드 - empty(), remove()</h1>
+        <article class="data">
+            <button id="btn1"> 엘리먼트 비우기 </button> 
+            <button id="btn2"> 엘리먼트 지우기 </button> 
+            <div>	
+                <p>Kitea's</p>	jQuery
+            </div>
+            <p> <span> Mobile </span> </p>
+            <p>Story</p>
+            <ul>
+                <li>데이터1</li><li></li><li>데이터3</li><li>데이터4</li>
+            </ul>
+        </article>
+    </section><br><hr><br>
+    <div class="indata1">데이터1</div>
+</body>
+</html>
+```
+
+### jQuery 엘리먼트 복제하기
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 38 : 엘리먼트 복제하기</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //button 요소를 클릭하면, strong요소를 span 요소에 자식으로 추가하고,
+        //em 요소를 복제하여 span 요소에 자식으로 추가
+        $("button").click(function(){
+            $("strong").appendTo($("span"));
+            $("em").clone().appendTo($("span"));
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>엘리먼트 복제 메소드 - clone()</h1>
+        <article class="data">
+            <button>복제</button>   
+            <strong> 김 </strong>
+            <em> 기태 </em>
+            <span> 세상에서 제일 좋아하는 사람 : </span>
+            <span> 세상에서 제일 미워할 수 없는 사람 : </span>
+        </article>
+    </section><br><hr><br>
+    <div class="indata1">데이터1</div>
+</body>
+</html>
+```
+
+### jQuery 엘리먼트 크기 구하기 및 설정
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 39 : 엘리먼트 크기 구하기 및 설정과 위치</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; position:relative; }
+    .data:after { content:""; display:block; clear:both; }
+    div.abs { width: 150px; height: 60px; position: absolute;
+     left:220px; top:35px; background-color: green; 
+     cursor: pointer; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //.abs 요소를 클릭하면, 클릭된 요소의 가로 위치, 세로 위치, 폭, 높이를 
+        //아이디가 result인 곳에 출력
+        $(".abs").click(function(){
+            var $obj = $(this).offset();    //left, top
+            $("#result").text(this.tagName + "  coords("+$obj.left+", "+$obj.top+"), width:"+$(this).width()+", height:"+$(this).height());
+        });
+        $(".indata1").click(function(){
+            $("#result").empty();
+            $(".abs").width($(".abs").width()*2);
+            $(".abs").height($(".abs").height()*2);
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>엘리먼트 위치 및 크기 메소드 - offset(), width(), height()</h1>
+        <article class="data">
+            <div id="result"></div>  <div class="abs"></div>
+        </article>
+    </section><br><hr><br><div class="indata1">초기화</div>
+</body>
+</html>
+```
+
+### jQuery 엘리먼트 마진을 포함한 크기 설정
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 40 : 엘리먼트 마진을 포함한 크기</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; }
+    p { width:200px; height:60px;  margin:20px; text-align:center;
+   background:red; cursor:pointer; color:#fff; line-height:60px; } 
+    </style>
+    <script>
+    $(document).ready(function(){
+        //문서가 로딩되면, 첫 p요소의 너비와 마진을 포함한 너비를 구하여 아이디가 res1인 곳에 출력하고, 높이와 마진을 포함한 높이를 구하여 아이디가 res2인 곳에 출력
+        var p = $("p:first");
+        $("#res1").text("width Size : "+p.outerWidth()+", Margin Include Size : "+p.outerWidth(true));
+        $("#res2").text("height Size : "+p.outerHeight()+", Margin Include Size : "+p.outerHeight(true));
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>엘리먼트의 마진을 포함한 크기 - outerWidth(), outerHeight()</h1>
+        <article class="data">
+            <p>Hello~! KimGiTae</p>
+            <div id="res1"></div>  <div id="res2"></div>
+        </article>
+    </section><br><hr><br>
+</body>
+</html>
+```
+
 <br><hr><br>
 
 ## jQuery 이벤트(Event) 메소드와 이벤트 객체
@@ -1633,6 +1990,545 @@ jQuery에 선택자로 원하는 요소를 선택하지 못하는 경우 선택�
 | event.result | 이벤트의 결과를 반환할 때 활용 |
 | event.preventDefault() | 모든 이벤트 발생을 방지할 경우 활용 |
 
+
+### jQuery 범용(종합) 이벤트 적용 메소드
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 41 : 범용 이벤트 적용 메소드</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    img { display:block; width:500px; height:auto; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //a 태그에 마우스 포인터를 올리면, img 요소에 해당 이미지를 보이도록 하시오. 
+        $("a").on("mouseover", function(){
+            $("img").attr("src", $(this).attr("data-val")).css("display", "none");
+            $("img").delay(500).fadeIn(800);
+        });
+        //on()이나 bind()과 같은 여러 이벤트를 적용할 수 있는 메소드를 범용 이벤트 메소드라고 한다.
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>범용 이벤트 적용 메소드 - bind(), on()</h1>
+        <article class="data">
+            <ul>	
+                <li> <a href="" data-val="img1.jpg"> 사진1 </a> </li>
+                <li> <a href="" data-val="img2.jpg"> 사진2 </a> </li>
+            </ul><img />
+        </article>
+    </section><br><hr><br>
+</body>
+</html>
+```
+
+### jQuery 범용(종합) 이벤트 적용 메소드2
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 42 : 범용 이벤트 메소드를 활용한 여러 이벤트 적용</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    img { display:block; width:500px; height:auto; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //img 요소에 마우스 포인터를 올리면, dy1.jpg를 적용하고,
+        //마우스 포인터가 내려가면, dy2.jpg를 적용하며,
+        //클릭시에는 주의 메시지를 출력하도록 하시오.
+        $("img").bind({
+            mouseover:function(){ $(this).attr("src", "dy1.jpg"); },
+            mouseout:function(){ $(this).attr("src", "dy2.jpg"); },
+            click:function() { alert("우리 위키미키 도연이 괴롭히지 마세요~!"); }
+        });
+        //개별 이벤트 메소드를 적용할 경우
+        /* $("img").mouseover(function(){
+            $(this).attr("src", "dy1.jpg");
+        });
+        $("img").mouseout(function(){
+            $(this).attr("src", "dy2.jpg");
+        });
+        $("img").click(function(){
+            alert("우리 위키미키 도연이 괴롭히지 마세요~!");
+        }); */
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>범용 이벤트 적용 메소드 - bind(), on()</h1>
+        <article class="data">
+            <img src="dy1.jpg" id="pic1">
+        </article>
+    </section><br><hr><br>
+</body>
+</html>
+```
+
+### jQuery 이벤트 타겟 활용
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 43 : 범용 이벤트 타겟 활용</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    img { display:block; width:50px; height:auto; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //img 요소를 더블클릭할 때마다 이벤트 타켓을 활용하여 callback처리로 이미지를
+        //1.5배씩 커지게 하시오.
+        $("img").bind("dblclick", function(event){
+            var $t = $(event.target);
+            $t.width($t.width()*1.5);
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>범용 이벤트 적용 메소드 - bind(), on()</h1>
+        <article class="data">
+            <img src="dy1.jpg" id="pic1">
+        </article>
+    </section><br><hr><br>
+</body>
+</html>
+```
+
+### jQuery 일회성 이벤트 적용
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 44 : 일회용 범용 이벤트 타겟 활용</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    img { display:block; width:100px; height:auto; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //img 요소를 클릭하면, 클릭된 이미지를 2배로 커지게 하시오.(이벤트 작동은 한 번만)
+        $("img").one("click", function(event){
+            var $t = $(this);
+            $t.width($t.width()*2);
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>일회용 범용 이벤트 적용 메소드 - one()</h1>
+        <article class="data">
+            <img src="dy1.jpg" id="pic1">
+        </article>
+    </section><br><hr><br>
+</body>
+</html>
+```
+
+### jQuery 이벤트의 제거
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 45 : 범용 이벤트 제거</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    img { display:block; width:100px; height:auto; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        var cnt = 0;
+        //img 요소를 클릭하면, 클릭된 이미지를 2배로 커지게 하시오.(이벤트 작동은 세 번만)
+        $("img").bind("click", function(event){
+            var $t = $(event.target);
+            $t.width($t.width()*2);
+            cnt++;
+            if(cnt >= 3){
+                $t.unbind();
+            }
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>범용 이벤트 제거 메소드 - unbind(), off()</h1>
+        <article class="data">
+            <img src="dy1.jpg" id="pic1">
+        </article>
+    </section><br><hr><br>
+</body>
+</html>
+```
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 46 : 범용 이벤트 제거</title>
+    <script src="./jquery-1.12.4.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    img { display:block; width:100px; height:auto; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        var cnt = 0;
+        //img 요소를 클릭하면, 클릭된 이미지를 2배로 커지게 하시오.(이벤트 작동은 세 번만)
+        $("img").on("click", function(event){
+            var $t = $(event.target);
+            $t.width($t.width()*2);
+            cnt++;
+            if(cnt >= 3){
+                $t.off();
+            }
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>범용 이벤트 제거 메소드 - unbind(), off()</h1>
+        <article class="data">
+            <img src="dy1.jpg" id="pic1">
+        </article>
+    </section><br><hr><br>
+</body>
+</html>
+```
+
+### jQuery 이벤트의 교대 수행
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 47 : 범용 이벤트의 교대 수행</title>
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    img { display:block; width:100px; height:auto; }
+    div { width:200px;	height:100px; line-height:100px; color:#fff; background:black; transition-duration:0.8s; text-align:center; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //div 요소를 클릭하면, 클릭된 DIV 요소에 배경색을 딥핑크, 딥스카이블루, 그린, 검정으로 교대로 바뀔 수 있도록 하시오.
+        $("div").toggle(
+            function(evnet) { $(evnet.target).css("background","deeppink").width(400); },
+            function(evnet) { $(evnet.target).css("background","deepskyblue").width(100); },
+            function(evnet) { $(evnet.target).css("background","green").width(300); },
+            function(evnet) { $(evnet.target).css("background","black").width(200); }
+        );
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>이벤트 교대 수행 메소드 - toggle()</h1>
+        <p>jQuery version 1.9 미만에서만 작동됨</p>
+        <article class="data">
+            <img src="dy2.jpg">
+	        <div>DIV</div>
+        </article>
+    </section><br><hr><br>
+</body>
+</html>
+```
+
+### jQuery 이벤트의 위임(상속)
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 48 : 이벤트의 위임(상속)</title>
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+    <script>
+    $(document).ready(function(){
+        //p 요소를 클릭하면, 클릭된 p요소의 다음(동생) 요소로 "<p>Another paragraph!</p>" 이 추가되도록 하시오.(단, 새로 추가된 p요소에도 이벤트가 상속되어야 함)
+        $("p").live("click", function(){
+            $(this).after("<p>Another paragraph!</p>");
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>이벤트 위임(상속) 메소드 - live()</h1>
+        <div>jQuery version 1.9 미만에서만 작동됨</div>
+        <article class="data">
+            <p>Click me!</p> 
+        </article>
+    </section><br><hr><br>
+</body>
+</html>
+```
+
+### jQuery 마우스 개별 이벤트
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 49 : 마우스 개별 이벤트</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    img { width: 300px; height:auto; border-width:10px; border-style:solid; 
+    border-color:black; transition-duration:0.6s; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //img 요소에서 마우스 왼쪽 버튼을 누르면, 테두리 색이 파랑,
+        //img 요소에서 마우스 왼쪽 버튼을 떼면, 테두리 색이 골드,
+        //img 요소에서 마우스 포인터가 내려 오면, 테두리 색이 검정,
+        //img 요소에서 마우스 포인터가 올라 가면, 테두리 색이 빨강,
+        //img 요소를 클릭하면, 이미지는 1.5배로 커짐
+        //img 요소를 더블클릭하면, 이미지는 1.5배로 작아짐
+        $("img").mousedown(function(){
+            $(this).css("border-color","blue");
+        });
+        $("img").mouseup(function(){
+            $(this).css("border-color","gold");
+        });
+        $("img").mouseout(function(){
+            $(this).css("border-color","black");
+        });
+        $("img").mouseover(function(){
+            $(this).css("border-color","red");
+        });
+        $("img").click(function(){
+            $(this).width($(this).width()*1.5);
+        });
+        $("img").dblclick(function(){
+            $(this).width($(this).width()/1.5);
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>마우스 개별 이벤트 메소드</h1>
+        <p>click, dblclick, mouseover, mouseout, mousedown, mouseup
+            mouseenter, mouseleave, hover, mousemove, contextmenu, wheel 등 이 있다.</p>
+        <article class="data">
+            <img src="dy2.jpg" id="pic1">
+        </article>
+    </section><br><hr><br>
+</body>
+</html>
+```
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 50 : 마우스 개별 이벤트2</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    img { width: 500px; height:auto; border-width:10px; border-style:solid; 
+    border-color:black; transition-duration:0.6s; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //img 요소에서 마우스 포인터를 움직이면,
+        //브라우저를 기준으로 마우스 포인터의 위치를 x, y 좌표값으로 첫 번째 p요소에 출력
+        //화면을 기준으로 마우스 포인터의 위치를 x, y 좌표값으로 .middle이 적용된 p요소에 출력
+        //페이지를 기준으로 마우스 포인터의 위치를 x, y 좌표값으로 마지막 p요소에 출력
+        $("img").mousemove(function(event){
+            $("p:first").html(event.clientX + ", " + event.clientY);
+            $("p.middle").html(event.screenX + ", " + event.screenY);
+            $("p:last").html(event.pageX + ", " + event.pageY);
+        });
+    });    
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>마우스 개별 이벤트 메소드2</h1>
+        <div>click, dblclick, mouseover, mouseout, mousedown, mouseup
+            mouseenter, mouseleave, hover, mousemove, contextmenu, wheel 등 이 있다.</div>
+        <article class="data">
+            <div><img src="dy2.jpg" id="pic1"></div>
+            <p></p>   <p class="middle"></p>   <p></p>
+        </article>
+    </section><br><hr><br>
+</body>
+</html>
+```
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 51 : 마우스 개별 이벤트3</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    * { margin:0; padding:0; }
+    body, html { width:100%; height:100%; }
+    ul { list-style: none; }
+    a { text-decoration:none; }
+    .container, .page { width:100%; height:100%; }
+    .page { background-repeat:no-repeat; background-size:cover; 
+    background-position: center center; }
+    #page1 { background-image: url("black1.jpg"); }
+    #page2 { background-image: url("black2.jpg");
+     background-attachment:fixed;  }
+    #page3 { background-image: url("black3.jpg"); }
+    #page4 { background-image: url("black4.jpg"); }
+    .boxFrame { width:1000px; margin:0px auto;  padding-top:100px;
+    display:none; }
+    .col { width:300px; float:left; margin:10px; }
+    #gnb { position:fixed; top:0; left:0; z-index:20; width:100%;
+    height:80px; background:rgba(0,0,0,0.8); display:none; }
+    #gnb li { float:left; padding:20px; float:left; }
+    #gnb a { color:#fff; font-weight:bold; }
+    .title1 { color:#fff; text-shadow:1px 1px 10px #222;
+        text-align:center; line-height:250px; font-size:60px; }
+    .comment { position:fixed; left:50%; width:500px; margin-left:-250px; 
+        bottom:150px; z-index:999; box-shadow:0px 0px 10px #fff; color:deepskyblue; }    
+    </style>
+    <script>
+        $(document).ready(function(){
+            var Ht = $(window).height(); //페이지 높이 계산
+            var pageCnt = $(".page").length; //페이지 수 계산
+            $(window).scroll(function(){ //스크롤이 되었을 때
+                var scTop = $(window).scrollTop(); //스크롤된 양 계산
+                //console.log(scTop);
+                if(scTop >= Ht*2){
+                    $(".boxFrame").fadeIn(1500);
+                } else {
+                    $(".boxFrame").fadeOut(1500);
+                }
+                if(scTop >= 100) {
+                    $("#gnb").slideDown(800);
+                } else {
+                    $("#gnb").slideUp(800);
+                }
+            });
+        });
+        </script>
+</head>
+<body>
+    <section class="comment">
+        <h1>마우스 개별 이벤트 메소드2</h1>
+        <div>click, dblclick, mouseover, mouseout, mousedown, mouseup
+            mouseenter, mouseleave, hover, mousemove, contextmenu, wheel 등 이 있다.</div>
+        <article class="data">
+            
+        </article>
+    </section>
+    <nav id="gnb">
+        <ul>
+            <li><a href="">회사소개</a></li>
+            <li><a href="">제품소개</a></li>
+            <li><a href="">서비스</a></li>
+            <li><a href="">고객센터</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <section class="page" id="page1">
+            <h1 class="title1">제목1</h1>
+        </section>
+        <section class="page" id="page2">
+            <h1 class="title1">제목2</h1>
+        </section>
+        <section class="page" id="page3">
+            <div class="boxFrame">
+                <div class="col">
+                    <img src="http://placehold.it/300x200/222/fff" alt="">
+                </div>
+                <div class="col">
+                    <img src="http://placehold.it/300x200/222/fff" alt="">
+                </div>
+                <div class="col">
+                    <img src="http://placehold.it/300x200/222/fff" alt="">
+                </div>
+            </div>
+        </section>
+        <section class="page" id="page4"></section>
+    </div>
+</body>
+</html>
+```
+
 <br><hr><br>
 
 ## jQuery 효과(Effect) 메소드
@@ -1655,6 +2551,7 @@ jQuery에 선택자로 원하는 요소를 선택하지 못하는 경우 선택�
 | slideDown(실행시간, [function(){}]) | 아래로 펼쳐지면서 나타나는 애니메이션 적용 |
 | slideUp(실행시간, [function(){}]) | 위로 접히면서 사라지는 애니메이션 적용 |
 | slideToggle(실행시간, [function(){}]) | slideDown과 slideUp 애니메이션을 교대로 적용 |
+
 ※ effect 관련 메소드의 실행시간은 fast, slow와 같은 키워드로도 가능하지만, 보통 ms단위의 숫자만 기재하는 것이 보통임.
 ※ effect 관련 메소드의 실행시간이 있는 메소드는 easing 속성을 지정할 수 있으며, easing는 가속 또는 감속 효과를 나타냄
 
@@ -1690,6 +2587,7 @@ jQuery에 선택자로 원하는 요소를 선택하지 못하는 경우 선택�
 | jQuery.type(객체명) | 해당 객체의 타입을 반환 |
 | jQuery.unique(배열명) | 해당 배열의 중복을 제거하고 반환 |
 | jQuery.uniqueSort(배열명) | 해당 배열의 중복을 제거하고, 소트하여 반환 |
+
 ※ "jQuery." 으로 시작하는 메소드는 "$." 으로도 쓸 수 있음
 
 
