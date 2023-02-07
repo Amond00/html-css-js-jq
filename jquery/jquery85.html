@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+</head>
+<body>
+    <section class="container">
+        <article class="data">
+            <form>
+                <select name="job">
+                    <option>option1</option>
+                    <option>option2</option>
+                </select>
+                <br>
+                <input type="checkbox" name="area" value="수도권" id="ch1">
+                <label for="ch1">수도권</label>
+                <input type="checkbox" name="area" value="비수도권" id="ch2" checked>
+                <label for="ch2">비수도권</label>
+                <button type="submit">submit</button>
+            </form>
+            <button type="button" id="btn1">전송</button>
+            <button type="button" id="btn2">전송2</button>
+            <div id="result"></div>
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+    $(document).ready(function(){
+        $("#btn2").click(function(){
+            $.ajaxSetup({
+                url:"test.txt",
+                success:function(result){
+                    $("#result").html(result);
+                }
+            });
+            var currentRequests = {};
+            $.ajaxPrefilter(function(options, originalOptions, jpXHR){
+            
+                $.ajaxTransport("image",function(s){
+                $.ajax();    
+                });
+            });
+
+        });
+    });
+    </script>
+</body>
+</html>

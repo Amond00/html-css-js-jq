@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+</head>
+<body>
+    <section class="container">
+        <article class="data">
+            <input type="button" id="trigger1" value="success button" />
+            <input type="button" id="trigger2" value="error button" />
+            <div style="display: inline;">log : </div>
+            <div id="log" style="display: inline;"></div>
+            <div style="display: inline;">result : </div>
+            <div id="result" style="display: inline;"></div>
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+    $(document).ready(function(){
+        $("#log").css("display","none");
+    });
+
+    $(document).ajaxStart(function(event, xhr, settings){
+        $("#log").delay(500).fadeIn(500, function(){
+            $(this).text('start').delay(1000).fadeOut(500);
+        });
+    });
+
+    $(document).ajaxStop(function(event, xhr, settings){
+        $("#log").delay(500).fadeIn(500, function(){
+            $(this).text('stop').delay(1000).fadeOut(500);
+        }); 
+    });
+
+    $(document).ajaxComplete(function(event, xhr, settings){
+        if(settings.url === "text.html"){
+            $("#log").delay(500).fadeIn(500, function(){
+                $(this).text('complete').delay(1000).fadeOut(500);        
+            }); 
+        }
+    });
+
+    $(document).ajaxSuccess(function(event, xhr, settings){
+        $("#log").delay(500).fadeIn(500, function(){
+            $(this).text('success').delay(1000).fadeOut(500);
+        }); 
+    });
+
+    $(document).ajaxError(function(event, xhr, settings){
+        $("#log").delay(500).fadeIn(500, function(){
+            $(this).text('error').delay(1000).fadeOut(500);
+        }); 
+    });
+
+    $(document).ajaxSend(function(event, xhr, settings){
+        $("#log").delay(500).fadeIn(500, function(){
+            $(this).text('send').delay(1000).fadeOut(500);
+        }); 
+    });
+    </script>
+    <script>
+    $(document).ready(function(){
+        $("#trigger1").click(function(){
+            $("#log").stop();
+            $("#result").load("test.html");
+        });
+        $("#trigger2").click(function(){
+            $("#result").load("error.html");
+        });
+    });
+    </script>
+</body>
+</html>

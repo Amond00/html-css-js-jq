@@ -2513,13 +2513,13 @@ jQuery에 선택자로 원하는 요소를 선택하지 못하는 경우 선택�
         <section class="page" id="page3">
             <div class="boxFrame">
                 <div class="col">
-                    <img src="http://placehold.it/300x200/222/fff" alt="">
+                    <img src="https://placeimg.com/300/200/any/grayscale" alt="">
                 </div>
                 <div class="col">
-                    <img src="http://placehold.it/300x200/222/fff" alt="">
+                    <img src="https://placeimg.com/300/200/any/grayscale" alt="">
                 </div>
                 <div class="col">
-                    <img src="http://placehold.it/300x200/222/fff" alt="">
+                    <img src="https://placeimg.com/300/200/any/grayscale" alt="">
                 </div>
             </div>
         </section>
@@ -2529,7 +2529,246 @@ jQuery에 선택자로 원하는 요소를 선택하지 못하는 경우 선택�
 </html>
 ```
 
+### jQuery 폼 관련 이벤트 메소드
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 52 : 폼 관련 이벤트 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    input { display:block; width:900px; height:48px; line-height: 48px; 
+    font-size:30px; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //문서가 로딩되면, input 요소에 "아이디를 입력하세요"라는 값이 파란색 글자로 입력되도록 하시오.
+        $("input").val("아이디를 입력하세요").css("color","blue");
+        //input 요소가 포커스(커서)를 획득하면, 해당 요소의 값을 비우고 글자색을 검정색으로 하시오.
+        $("input").focus(function(){
+            $(this).val("").css("color", "black");
+        });
+        //input 요소에서 포커스를 잃으면, 해당 요소의 입력된 값을 비교하여, 입력된 값이 없는 경우 "아이디가 입력되지 않았습니다~!"를 빨간색으로 표시하시오.
+        $("input").blur(function(){
+            if($(this).val()=="") {
+                $(this).val("아이디가 입력되지 않았습니다~!").css("color","red");
+            }
+        });
+
+        //아이디가 sel인 요소에서 해당 값을 선택하면, 선택된 사이트의 주소로 새로운 창에 띄우기하시오.
+        $("#sel").change(function(){
+            var hrefUrl = $(this).val();
+            if($(this).val()!="") {
+                window.open(hrefUrl, "new Window");
+            }
+        });
+    });
+    </script>
+</head>
+<body>
+    <section class="comment">
+        <h1>폼 관련 이벤트 메소드 - focus(), blur(), change()</h1>
+        <article class="data">
+            <input type="text" id="id">
+        </article>
+        <article class="data">
+            사이트 선택:
+            <select id="sel">
+                <option value="" selected>선택안함</option>
+                <option value="http://www.naver.com">네이버</option>
+                <option value="http://www.daum.net">다음</option>
+                <option value="http://www.google.com">구글</option>
+            </select>
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>
+```
+
+### jQuery 윈도우 관련 이벤트 메소드
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 53 : 창 관련 이벤트 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    input { display:block; width:900px; height:48px; line-height: 48px; 
+    font-size:30px; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //데스크탑(960이상)일 경우 제목, 설명 등의 글자색은 파랑, 글자크기는 제목 : 48px, 설명 : 20px, 이미지는 dy1.jpg로
+        //태블릿(768~959)일 경우 제목, 설명 등의 글자색은 초록, 글자크기는 제목 : 36px, 설명 : 18px, 이미지는 dy2.jpg로
+        //모바일(~767)일 경우 제목, 설명 등의 글자색은 빨강, 글자크기는 제목 : 24px, 설명 : 14px, 이미지는 dy3.jpg로
+        var wd0 = screen.width;
+        $(window).resize(function(){
+            var wd = $(window).width();
+            if(wd>=960 || wd==wd0){
+                $(".title").css("color", "blue").css("font-size","48px");
+                $(".comment").css("color", "blue").css("font-size","20px");
+                $("img").attr("src","dy1.jpg").width(500);
+            } else if(wd>=768) {
+                $(".title").css("color", "green").css("font-size","36px");
+                $(".comment").css("color", "green").css("font-size","18px");
+                $("img").attr("src","dy2.jpg").width(400);
+            } else {
+                $(".title").css("color", "red").css("font-size","24px");
+                $(".comment").css("color", "red").css("font-size","14px");
+                $("img").attr("src","dy3.jpg").width(200);
+            }
+        }).resize();
+    });
+    </script>
+</head>
+<body>
+    <section class="comment">
+        <h1>창 관련 이벤트 메소드 - resize()</h1>
+        <article class="data">
+            <h2 class="title">제목</h2>
+            <p class="comment">설명</p>
+            <h3>이미지 이름 :</h3>
+            <img src="dy1.jpg" alt="위키미키 도연">
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>
+```
+
+### jQuery 키보드 관련 이벤트 메소드
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 54 : 키보드 관련 이벤트 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    input { display:block; width:900px; height:48px; line-height: 48px; 
+    font-size:30px; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //아이디가 msgBox인 요소에 글자를 입력하면, 입력된 글자수를 카운트하여 80글자를 기준으로 입력가능한(남은) 글자수를 h2요소에 출력하고, 만약, 초과하여 입력하면, msgBox의 글자색은 빨강으로 하고 비활성화되도록 하고, 초과하지 않으면, 파랑으로 글자색을 표시하며, 아이디가 btn1인 요소를 클릭하면, msgBox를 초기화하도록 하시오.
+        $("#msgBox").keyup(function(){
+            var inLength = $(this).val().length;
+            var remain = 80 - inLength;
+            $("h2").html(remain);
+            if(remain >= 0) {
+                $("h2").css("color","blue");
+            } else {
+                $("h2").css("color","red");
+                $(this).css("color","red");
+                $(this).attr("disabled", "true");
+                $("#status").text(Math.abs(remain)+"글자를 초과하였습니다.");
+            }
+        });
+        $("#btn1").click(function(){
+            $("#msgBox").remove();
+            $("h2").after("<textarea id='msgBox' cols='40' rows='8'></textarea>");
+            $("h2").text("80").css("color","black");
+        });
+    });
+    </script>
+</head>
+<body>
+    <section class="comment">
+        <h1>키보드 관련 이벤트 메소드 - keyup(), keydown(), keypress()</h1>
+        <article class="data">
+            <div>
+                남은 글자수
+                <h2>80</h2>
+                <textarea id="msgBox" cols="40" rows="8"></textarea>
+            </div>
+            <div id="status"></div><button id="btn1">초기화</button>
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>
+```
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 54 : 키보드 관련 이벤트 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    input { display:block; width:900px; height:48px; line-height: 48px; 
+    font-size:30px; }
+    #imgTarget { transition-duration:0.6s; width:200px; }
+    #msgBox { opacity:0; }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //+를 누르면 이미지(#imgTarget)를 두 배 확대, -를 누르면 두 배 축소
+        $("#msgBox").keypress(function (event) {
+			var ht = $("#imgTarget").height();
+			var wd = $("#imgTarget").width();
+			$("#result").text("눌려진 키는 " 
+			+ String.fromCharCode(event.which) + " 이며, 키 값은 " 
+			+ event.which + " 입니다.");
+			if(event.which == 43) {
+				$("#imgTarget").width($("#imgTarget").width()*2);
+			} else if(event.which == 45) {
+				$("#imgTarget").width($("#imgTarget").width()/2);
+			}
+		});
+    });
+    </script>
+</head>
+<body>
+    <section class="comment">
+        <h1>키보드 관련 이벤트 메소드 - keyup(), keydown(), keypress()</h1>
+        <article class="data">
+            <div>
+                <h2>눌려진 키는?</h2>
+                <input id="msgBox" autofocus />
+            </div>
+            <h3 id="result"></h3>
+            <img src="dy3.jpg" alt="도연" id="imgTarget">
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>
+```
 <br><hr><br>
+
 
 ## jQuery 효과(Effect) 메소드
 | 메소드 문법 | 설명 |
@@ -2555,6 +2794,427 @@ jQuery에 선택자로 원하는 요소를 선택하지 못하는 경우 선택�
 ※ effect 관련 메소드의 실행시간은 fast, slow와 같은 키워드로도 가능하지만, 보통 ms단위의 숫자만 기재하는 것이 보통임.
 ※ effect 관련 메소드의 실행시간이 있는 메소드는 easing 속성을 지정할 수 있으며, easing는 가속 또는 감속 효과를 나타냄
 
+
+### jQuery 기본 효과 메소드 show/hide/toggle
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 56 : 보이기/숨기기 효과 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    * { margin: 0; padding:0; }
+    body, html { width: 100%; height: 100%; }
+    ul { list-style:none; }
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    .lst, .btnFrame { margin: 30px auto; width:600px;  clear:both; }
+    .lst li { float:left; margin-left:10px; display:none; }
+    .txt { clear:both; text-align:center; }
+    h1 { text-align: center; margin-top:1.8rem; }
+    p { line-height:1.8; padding-top:2rem; padding-bottom:3rem; }
+    button { display:block; float:left; margin:24px; padding:18px; background-color: #2c4d5f; color:#fff; outline:0; border:0; border-radius:14px; cursor: pointer;
+     }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //아이디가 btn1인 버튼을 클릭하면, .lst 내부의 li 요소를 보이게 하는 효과를 적용
+        $("#btn1").click(function(){ //duration : fast, normal(생략), slow, ms단위 숫자 
+            $(".lst li").show(2000, function(){
+                $(".txt").text("리스트 박스가 보여지고 있습니다.");
+            });
+        });
+        //아이디가 btn2인 버튼을 클릭하면, .lst 내부의 li 요소를 숨기게 하는 효과를 적용
+        $("#btn2").click(function(){
+            $(".lst li").hide("slow", function(){
+                $(".txt").text("리스트 박스가 숨겨지고 있습니다.");
+            });
+        });
+
+        //아이디가 btn3인 버튼을 클릭하면, .lst 내부의 li 요소를 교대로 보이고, 숨기게 하는 효과를 적용
+        $("#btn3").click(function(){
+            $(".lst li").toggle("slow", function(){
+                var status = $(".lst li").css("display");
+                if(status=="none"){
+                    $(".txt").text("리스트 박스가 숨겨지고 있습니다.");
+                } else {
+                    $(".txt").text("리스트 박스가 보여지고 있습니다.");
+                }
+            });
+        });
+    });
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>보이기/숨기기 효과 메소드 - show(), hide(), toggle()</h1>
+        <p>가로 방향과 세로 방향으로 커지면서 보여지거나 작아지면서 숨겨지는 효과</p>
+        <article class="data">
+            <div class="btnFrame">
+                <button id="btn1">보이기 버튼</button>
+                <button id="btn2">숨기기 버튼</button>
+                <button id="btn3">토글 버튼</button>
+            </div>
+            <ul class="lst">
+                <li><img src="item1.png" alt=""></li>
+                <li><img src="item2.png" alt=""></li>
+                <li><img src="item3.png" alt=""></li>
+            </ul>
+            <div class="txt">버튼을 누르면, 효과가 실행됩니다.</div>
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>
+```
+
+### jQuery 기본 효과 메소드 slideDown/slideUp/slideToggle 
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 57 : 펼쳐지기/접히기 효과 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    * { margin: 0; padding:0; }
+    body, html { width: 100%; height: 100%; }
+    ul { list-style:none; }
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    .lst, .btnFrame { margin: 30px auto; width:600px;  clear:both; }
+    .lst li { float:left; margin-left:10px; display:none; }
+    .txt { clear:both; text-align:center; }
+    h1 { text-align: center; margin-top:1.8rem; }
+    p { line-height:1.8; padding-top:2rem; padding-bottom:3rem; }
+    button { display:block; float:left; margin:24px; padding:18px; background-color: #2c4d5f; color:#fff; outline:0; border:0; border-radius:14px; cursor: pointer;
+     }
+    </style>
+    <script>
+    $(document).ready(function(){
+        $(".lst li").each(function(index){
+            $(this).delay(index*500).slideDown(600);
+        });
+        //아이디가 btn1인 버튼을 클릭하면, .lst 내부의 li 요소를 펼쳐지면서 보여지는 효과를 적용
+        $("#btn1").click(function(){ 
+            //duration : fast, normal(생략), slow, ms단위 숫자 
+            $(".lst li").slideDown(2000, function(){
+                $(".txt").text("리스트 박스가 펼쳐지고 있습니다.");
+            });
+        });
+        //아이디가 btn2인 버튼을 클릭하면, .lst 내부의 li 요소를 접히면서 숨겨지는 효과를 적용
+        $("#btn2").click(function(){
+            $(".lst li").slideUp("slow", function(){
+                $(".txt").text("리스트 박스가 접히고 있습니다.");
+            });
+        });
+
+        //아이디가 btn3인 버튼을 클릭하면, .lst 내부의 li 요소를 교대로 펼쳐져 보이고, 접히며 숨겨지는 효과를 적용
+        $("#btn3").click(function(){
+            $(".lst li").stop().slideToggle(3000, function(){ //stop(true, true)
+                var status = $(".lst li").css("display");
+                if(status=="none"){
+                    $(".txt").text("리스트 박스가 접히고 있습니다.");
+                } else {
+                    $(".txt").text("리스트 박스가 펼쳐지고 있습니다.");
+                }
+            });
+        });
+    });
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>보이기/숨기기 효과 메소드 - slideDown(), sildeUp(), slideToggle()</h1>
+        <p>세로 방향으로 펼쳐지면서 보여지거나 접히면서 숨겨지는 효과</p>
+        <h1>지연 메소드 - delay(), 정지 메소드 - stop()</h1>
+        <article class="data">
+            <div class="btnFrame">
+                <button id="btn1">보이기 버튼</button>
+                <button id="btn2">숨기기 버튼</button>
+                <button id="btn3">토글 버튼</button>
+            </div>
+            <ul class="lst">
+                <li><img src="item1.png" alt=""></li>
+                <li><img src="item2.png" alt=""></li>
+                <li><img src="item3.png" alt=""></li>
+            </ul>
+            <div class="txt">버튼을 누르면, 효과가 실행됩니다.</div>
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>
+```
+
+### jQuery 기본 효과 메소드 fadeIn/fadeOut/fadeToggle
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 58 : 페이드 효과 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    * { margin: 0; padding:0; }
+    body, html { width: 100%; height: 100%; }
+    ul { list-style:none; }
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    .lst, .btnFrame { margin: 30px auto; width:600px;  clear:both; }
+    .lst li { float:left; margin-left:10px; display:none; }
+    .txt { clear:both; text-align:center; }
+    h1 { text-align: center; margin-top:1.8rem; }
+    p { line-height:1.8; padding-top:2rem; padding-bottom:3rem; }
+    button { display:block; float:left; margin:24px; padding:18px; background-color: #2c4d5f; color:#fff; outline:0; border:0; border-radius:14px; cursor: pointer;
+     }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        //가속 감속 효과 모음 : linear swing easeInQuad easeOutQuad easeInOutQuad easeInCubic easeOutCubic easeInOutCubic easeInQuart easeOutQuart easeInOutQuart easeInQuint easeOutQuint easeInOutQuint easeInSine easeOutSine easeInOutSine easeInExpo easeOutExpo easeInOutExpo easeInCirc easeOutCirc easeInOutCirc easeInElastic easeOutElastic easeInOutElastic easeInBack easeOutBack easeInOutBack easeInBounce easeOutBounce easeInOutBounce
+        $(".lst li").each(function(index){
+            $(this).delay(index*500).fadeIn(600, "easeInOutBounce");
+        });
+        //아이디가 btn1인 버튼을 클릭하면, .lst 내부의 li 요소를 서서히 보여지는 효과를 적용
+        $("#btn1").click(function(){ 
+            //duration : fast, normal(생략), slow, ms단위 숫자 
+            $(".lst li").each(function(index){ 
+                $(this).delay(index*500).fadeIn(2000, "easeOutElastic");
+                $(".txt").text("리스트 박스가 서서히 나타나고 있습니다.");    
+            });
+        });
+        //아이디가 btn2인 버튼을 클릭하면, .lst 내부의 li 요소를 서서히 사라지는 효과를 적용
+        $("#btn2").click(function(){
+            $(".lst li").fadeOut("slow", "easeOutCubic", function(){
+                $(".txt").text("리스트 박스가 서서히 사라지고 있습니다.");
+            });
+        });
+
+        //아이디가 btn3인 버튼을 클릭하면, .lst 내부의 li 요소를 교대로 서서히 보이고, 서서히 사라지는 효과를 적용
+        $("#btn3").click(function(){
+            $(".lst li").stop().fadeToggle(3000, "easeOutExpo", function(){ //stop(true, true)
+                var status = $(".lst li").css("display");
+                if(status=="none"){
+                    $(".txt").text("리스트 박스가 서서히 사라지고 있습니다.");
+                } else {
+                    $(".txt").text("리스트 박스가 서서히 나타나고 있습니다.");
+                }
+            });
+        });
+    });
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>서서히 보이기 서서히 사라지는 효과 메소드 - fadeIn(), fadeOut(), fadeToggle()</h1>
+        <p>서서히 보여지거나 서서히 사라지는 효과</p>
+        <h1>가속 감속 효과 적용시 jquery.easing.js 활용</h1>
+        <article class="data">
+            <div class="btnFrame">
+                <button id="btn1">보이기 버튼</button>
+                <button id="btn2">숨기기 버튼</button>
+                <button id="btn3">토글 버튼</button>
+            </div>
+            <ul class="lst">
+                <li><img src="item1.png" alt=""></li>
+                <li><img src="item2.png" alt=""></li>
+                <li><img src="item3.png" alt=""></li>
+            </ul>
+            <div class="txt">버튼을 누르면, 효과가 실행됩니다.</div>
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>
+```
+
+### jQuery 기본 효과 메소드 fadeTo
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 59 : 흐림도(불투명도) 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    * { margin: 0; padding:0; }
+    body, html { width: 100%; height: 100%; }
+    ul { list-style:none; }
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    .lst, .btnFrame { margin: 30px auto; width:600px;  clear:both; }
+    .lst li { float:left; margin-left:10px; opacity:1; }
+    .txt { clear:both; text-align:center; }
+    h1 { text-align: center; margin-top:1.8rem; }
+    p { line-height:1.8; padding-top:2rem; padding-bottom:3rem; }
+    button { display:block; float:left; margin:24px; padding:18px; background-color: #2c4d5f; color:#fff; outline:0; border:0; border-radius:14px; cursor: pointer;
+     }
+    </style>
+    <script>
+    $(document).ready(function(){
+        //아이디가 btn1인 버튼을 클릭하면, .lst 내부의 li 요소를 서서히 선명해지는 효과를 적용
+        var opa = parseFloat($(".lst li").css("opacity"));
+        $("#btn1").click(function(){ 
+            if(opa<1) {
+                opa = opa + 0.1;
+            }
+            $(".lst li").clearQueue().fadeTo(300, opa);
+        });
+        //아이디가 btn2인 버튼을 클릭하면, .lst 내부의 li 요소를 서서히 흐려지는 효과를 적용
+        $("#btn2").click(function(){
+            if(opa>0){
+                opa = opa - 0.1;
+            }
+            $(".lst li").clearQueue().fadeTo(300, opa);
+        });
+    });
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>흐림도(불투명도) 효과 메소드 - fadeTo()</h1>
+        <p>서서히 흐려지거나 서서히 선명해지는 효과</p>
+        <article class="data">
+            <div class="btnFrame">
+                <button id="btn1">선명하게 버튼</button>
+                <button id="btn2">흐리게 버튼</button>
+            </div>
+            <ul class="lst">
+                <li><img src="item1.png" alt=""></li>
+                <li><img src="item2.png" alt=""></li>
+                <li><img src="item3.png" alt=""></li>
+            </ul>
+            <div class="txt">버튼을 누르면, 효과가 실행됩니다.</div>
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>
+```
+
+### jQuery 사용자 효과 메소드 animate
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 60 : 사용자 정의 애니메이션 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    * { margin: 0; padding:0; }
+    body, html { width: 100%; height: 100%; }
+    ul { list-style:none; }
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    #visual { width:200px; height:200px; margin:100px auto;
+	 overflow:hidden; position:relative; clear:both; margin-bottom: 10px; }
+	.img_box { width:2000px; height:200px; }
+	#visual a { display:block; width:200px; height:200px; float:left; 
+    position: relative; }
+	#visual img { display:block; width:200px; height:auto; }
+	.num { display:block; color:black;	background:yellow;
+	 border-radius:20px; width:40px; height:40px; position:absolute;
+	  z-index:10; top:20px; left:20px;
+		text-align:center;	line-height: 40px; }
+	#btn_box { width:200px; height:30px; margin:0px auto; }
+	#btn_box a { display:block; width:30px; height:30px; cursor:pointer; 
+    position:absolute; top:280px; z-index:20; }
+	#btn_box .left { left:50%; margin-left:-150px; }
+	#btn_box .right { right:50%; margin-right:-150px; }
+    #num_box { clear:both; width:200px; margin:2px auto; height:40px; }
+    #num_box span { display:block; width:32px; margin:8px; float:left; color:#333; 
+    cursor:pointer; text-align: center; line-height: 32px; font-weight: 900; }
+    </style>
+    <script>
+    $(document).ready(function(){
+       var len = $(".img_box a").length;
+       var wd = $("#visual").width();
+       $(".img_box a").each(function(index){
+            $(this).find(".num").text(index+1);
+            $("#num_box").append("<span>"+(index+1)+"</span>")
+       }); 
+       $("#btn_box .left").click(function(){
+            var ml = parseInt($(".img_box").css("margin-left"));
+            if(ml<0) {
+                $(".img_box").not(":animated").animate({"margin-left":"+="+wd+"px"}, 500);
+            }
+       });
+       $("#btn_box .right").click(function(){
+            var ml = parseInt($(".img_box").css("margin-left"));
+            if(ml>(len-1)*wd*-1) {
+                $(".img_box").not(":animated").animate({"margin-left":"-="+wd+"px"}, 500);
+            }
+       });
+       $("#num_box span").click(function(){
+            var idx = $(this).index() * -1;
+            var mlt = idx * wd;
+            $(".img_box").not(":animated").animate({"margin-left":mlt+"px"}, 500);
+       });
+    });
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>사용자 정의 효과 메소드 - animate()</h1>
+        <p>사용자가 애니메이션을 작성할 수 있도록한 메소드</p>
+        <article class="data">
+            <section id="visual">
+                <div class="img_box">
+                    <a href="">
+                        <img src="dy1.jpg" alt="">
+                        <span class="num"></span>
+                    </a>
+                    <a href="">
+                        <img src="dy2.jpg" alt="">
+                        <span class="num"></span>
+                    </a>
+                    <a href="">
+                        <img src="dy3.jpg" alt="">
+                        <span class="num"></span>
+                    </a>
+                    <a href="">
+                        <img src="im0.jpg" alt="">
+                        <span class="num"></span>
+                    </a>
+                </div>
+            </section>
+            <section id="btn_box">
+                <a class="left">◀</a><a class="right">▶</a>
+            </section>
+            <div id="num_box"></div>
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>
+```
 
 <br><hr><br>
 
@@ -2590,6 +3250,1246 @@ jQuery에 선택자로 원하는 요소를 선택하지 못하는 경우 선택�
 
 ※ "jQuery." 으로 시작하는 메소드는 "$." 으로도 쓸 수 있음
 
+### 배열 요소의 필터링
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 61 : 배열의 필터링 유틸리티 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    
+    </style>
+    <script>
+    $(function(){   
+        var arr = [ 1, 9, 3, 8, 6, 1, 5, 9, 4, 7, 3, 8, 6, 9, 1 ];
+        //아이디가 btn1인 요소를 클릭하면,
+        //1) 위 arr 배열의 요소의 데이터를 #res1에 출력
+        //2) 위 arr 배열에서 3의 배수가 이고, 2의 배수가 아닌 데이터를 필터링하여 #res2의 자식 요소 li의 텍스트로 각 요소를 출력하시오.
+        //3) 위 arr 배열에서 3의 배수가 아닌 데이터를 res3에 출력
+        $("#btn1").click(function(){
+            $("#res1").text(arr.join(", "));             //1. 요소 출력
+            //2-1. 3의  배수이면서, 2의 배수가 아닌 요소를 필터링
+            arr1 = jQuery.grep(arr, function(v, i){
+                return (v%3==0 && v%2!=0);
+            });
+            for(var i=0;i<arr1.length;i++){ //2-2. 필터링된 요소 출력
+                $("#res2").append("<li>"+arr1[i]+"</li>");
+            }
+            arr2 = jQuery.grep(arr, function(v, i){ //3-1. 3의 배수가 아닌 데이터 필터링
+                return v%3!=0;
+            });
+            var txt = "";
+            for(var i=0;i<arr2.length;i++){   //3-2. 필터링된 요소 텍스트로 출력
+                txt+=arr2[i] + ", ";
+            }
+            $("#res3").text(txt);
+        });
+
+    //아이디가 btn2인 요소를 클릭하면, #lst1, #lst2의 자식 요소의 qr 속성이 bind인 요소만 필터링하여 #res4의 목록으로 구성하시오.
+        $("#btn2").click(function(){
+            var lst = $("#lst1 li, #lst2 li");
+            var res = $.grep(lst, function(v, i){
+                return ($(v).attr("qr")=="bind");
+            });
+            for(var i=0;i<res.length;i++){
+                $("#res4").append(res[i]);
+            }
+        });
+    });
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>배열의 필터링 유틸리티 메소드 - grep()</h1>
+        <p>배열에서 특정 요소만 필터링 하여 배열로 반환하는 메소드</p>
+        <article class="data">
+            <div id="res1"></div>
+            <ul id="res2">
+
+            </ul>
+            <div id="res3"></div>
+            <button type="button" id="btn1">grep를 이용한 배열 필터링1</button>
+            <div id="data1">
+                <ul id="lst1">
+                    <li qr="bind">javascript</li>
+                    <li qr="frame">React</li>
+                    <li qr="frame">Vue</li>
+                    <li qr="bind">Momento</li>
+                </ul>
+                <ul id="lst2">
+                    <li qr="frame">Node</li>
+                    <li qr="bind">jQuery</li>
+                    <li qr="bind">Lodash</li>
+                    <li qr="frame">Angular</li>
+                </ul>
+            </div>
+            <button type="button" id="btn2">grep를 이용한 배열 필터링2</button>
+            <div id="res4"></div>
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>
+```
+
+### 배열 요소의 가공
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 62 : 배열의 가공 유틸리티 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+    <script>
+    var arr1 = ["kim", "lee", "park", "joeng", "han"];
+    var arr2 = ["kitae", "hayoung", "pyoenghwa", "jinseok", "taiheon"];
+    $(function(){
+        //아이디가 btn1인 요소를 클릭하면,
+        //1) 위 arr1 배열의 요소의 데이터를 대문자로 변환하여 #res1에 출력
+        //2) 위 arr1과 arr2 요소를 순회하여 더한 후 #res2의 자식 요소 li의 텍스트로 각 요소를 출력하시오.
+        $("#btn1").click(function(){
+            var data1 = $.map(arr1, function(value, index){
+                return (value.toUpperCase());
+            });
+            $("#res1").text(data1.join(", "));
+            
+            var data2 = $.map(arr1, function(value, index){
+                return (value+arr2[index]);
+            });
+            for(var i=0; i<data2.length;i++){
+                $("#res2").append("<li>"+data2[i]+"</li>");
+            }
+        });
+        //아이디가 btn2인 요소를 클릭하면,
+        //아이디가 lst1인 요소의 자식 요소를 가공하여 data-val 값이 front인 요소와 back인 요소를 두 개의 각 각의 그룹으로 분리된 ul의 목록요소 형태로 출력되도록 하시오.
+        $("#btn2").click(function(){
+            var data = $("#lst1 li").clone();
+            $("#res3").append("<h2>FRONT END</h2><ul id='front'></ul>");
+            $("#res3").append("<h2>BACK END</h2><ul id='back'></ul>");
+            var front = $.map(data, function(value, index){
+                if($(value).attr("data-val")=="front"){
+                    return value;
+                }
+            });
+            for(var i=0;i<front.length;i++){
+                $("#front").append(front[i]);
+            }
+            var back = $.map(data, function(value, index){
+                if($(value).attr("data-val")=="back"){
+                    return value;
+                }
+            });
+            for(var i=0;i<back.length;i++){
+                $("#back").append(back[i]);
+            }
+        });
+    });
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>배열의 가공 유틸리티 메소드 - map()</h1>
+        <p>배열를 가공 하여 또 다른 배열로 반환하는 메소드</p>
+        <article class="data">
+            <div id="res1"></div>
+            <ul id="res2">
+
+            </ul>
+            <button type="button" id="btn1">map를 이용한 배열 가공1</button>
+            <div id="data1">
+                <ul id="lst1">
+                    <li data-val="front">HTML</li>
+                    <li data-val="back">java</li>
+                    <li data-val="front">CSS</li>
+                    <li data-val="back">jsp</li>
+                    <li data-val="back">servlet</li>
+                    <li data-val="front">javascript</li>
+                </ul>
+            </div>
+            <button type="button" id="btn2">map를 이용한 배열 가공2</button>
+            <div id="res3">
+
+            </div>
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>
+```
+
+### 배열 요소의 합치기
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 63 : 배열의 합치기 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    
+    </style>
+    <script>
+    var arr1 = ["kim", "lee", "park", "joeng", "han"];
+    var arr2 = ["kang", "choi", "oh", "nam"]
+    $(function(){
+        //아이디가 btn1인 요소를 클릭하면,
+        //1) 위 arr1과 arr2 배열 요소를 합치기 하여 #res1에 출력
+        $("#btn1").click(function(){
+            var mg = $.merge(arr1, arr2);
+            $("#res1").text(mg.join(", "));
+        });
+        //아이디가 btn2인 요소를 클릭하면,
+        //2) 아래 아이디가 lst1인 요소의 자식 요소와 lst2인 요소를 합치기 하여 비순서형 목록 형태로 아이디가 res2인 곳에 출력
+        $("#btn2").click(function(){
+            $("#res2").append("<ul id='merge_data'></ul>");
+            var ar1 = $("#lst1 li").clone();
+            var ar2 = $("#lst2 li").clone();
+            var mg = $.merge(ar1, ar2);
+            $.each(mg, function(index){
+                $("#merge_data").append(mg[index]);
+            });
+        });
+    });
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>배열의 합치기 메소드 - merge()</h1>
+        <p>배열의 요소를 합치기하여 또 다른 배열로 반환하는 메소드</p>
+        <article class="data">
+            <div id="res1"></div>
+            <button type="button" id="btn1">merge를 이용한 배열 합치기1</button>
+            <div id="data1">
+                <ul id="lst1">
+                    <li>javascript</li>
+                    <li>jQuery</li>
+                    <li>Lodash</li>
+                    <li>Momento</li>
+                </ul>
+                <ul id="lst2">
+                    <li>Node</li>
+                    <li>React</li>
+                    <li>Vue</li>
+                    <li>Angular</li>
+                </ul>
+            </div>
+            <button type="button" id="btn2">merge를 이용한 배열 합치기2</button>
+            <div id="res2"></div>
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>
+```
+
+### 배열 요소의 순회
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 64 : 배열(객체) 요소 또는 속성 탐색 순회 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+    <script>
+    var arr1 = ["kim", "lee", "park", "joeng", "han"];
+    var obj1 = {name:"kim", age:38, height:174};
+    var arr2 = ["kang", "choi", "oh", "nam"]
+    $(function(){   
+    //아이디가 btn1인 요소를 클릭하면,
+    //1) 위 arr1를 순회하여 해당 수 만큼 #res1에 자식 요소인 li요소와 텍스트로 출력
+    $("#btn1").click(function(){
+        $.each(arr1, function(index, value){
+            $("#res1").append("<li>"+value+"</li>");
+        });
+        $.each(obj1, function(key, value){
+            $("#res3").append("<li>"+key+" : "+value+"</li>");
+        });
+    });
+    //아이디가 btn2인 요소를 클릭하면,
+    //2) 아이디가 lst1인 요소의 자식 요소 중에서 data-val 속성이 back인 텍스트 데이터를 res2의 자식 요소인 li요소와 텍스트로 출력하시오.
+        $("#btn2").click(function(){
+            var tar = $("#lst1 li").clone();
+            $.each(tar, function(index, value){
+                var th = $(this).attr("data-val");
+                if(th=="back"){
+                    $("#res2").append(value);
+                }
+            });
+        });
+    });
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>배열 요소 탐색 및 순회 메소드 - each()</h1>
+        <p>배열의 요소를 탐색 및 순회하는 메소드</p>
+        <article class="data">
+            <ul id="res1"></ul>
+            <button type="button" id="btn1">each를 이용한 배열 요소 순회</button>
+            <div id="data2">
+                <ul id="lst1">
+                    <li data-val="front">HTML</li>
+                    <li data-val="back">java</li>
+                    <li data-val="front">CSS</li>
+                    <li data-val="back">jsp</li>
+                    <li data-val="back">servlet</li>
+                    <li data-val="front">javascript</li>
+                </ul>
+            </div>
+            <ul id="res3"></ul>
+            <button type="button" id="btn2">each를 이용한 배열 요소 탐색</button>
+            <div id="data3">
+                <ul id="res2"></ul>
+            </div>
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>
+```
+
+### 객체의 요소 합치기
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 65 : 객체 요소 합치기 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+    <script>
+    var obj1 = { apple:0, banana:{ weight:52, price:1000 }, cherry:97};
+    var obj2 = {  banana:{ price:2000 },  durian:10000 };    
+    //아이디가 btn1인 요소를 클릭하면,
+    //1) 위 obj1과 obj2인 객체를 합치기 하여 map과 같은 JSON 의 형태로 #res1에 출력하시오.
+    $(function(){
+        $("#btn1").click(function(){
+            var obj = $.extend(obj1, obj2);
+            $("#res1").append(JSON.stringify(obj));
+        });
+    });
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>객체 요소 합치기 메소드 - extend()</h1>
+        <p>객체의 요소를 합치는 메소드</p>
+        <article class="data">
+            <div id="res1"></div>
+            <button type="button" id="btn1">extend를 이용한 객체 요소 합치기</button>
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>
+```
+
+### 객체 데이터의 데이터 바인딩
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 66 : 해당 요소에 데이터 바인딩시키는 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+    <script>
+    //아이디가 btn1인 요소를 클릭하면,
+    //1) 아이디가 res1인 곳의 첫 span 요소에 "취업"을 마지막 span 요소에 숫자 100을 객체로 만들어 데이터를 바인딩시키시오. 
+    $(function(){
+        $("#btn1").click(function(){
+            var div = $("#res1");
+            $.data(div, "study", {
+                first:"취업",
+                last:100
+            });
+            $("span").first().text($.data(div, "study").first);
+            $("span").last().text($.data(div, "study").last);
+        });
+    });
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>특정 요소에 값 바인딩 메소드 - data()</h1>
+        <p>특정 요소에 값을 바인딩 시키는 메소드</p>
+        <article class="data">
+            <div id="res1">
+                우리는 백엔드 기능과 프론트엔드 기능을 모두 학습하여 웹 개발자로 
+                <span></span>
+                하기 위하여 열심히 학습을 하고 있으며, 
+                <span></span>% 취업하고자 합니다.
+            </div>
+            <button type="button" id="btn1">data를 이용한 값 바인딩 시키기</button>
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>
+```
+
+### 날짜 객체의 제어와 계산식 처리
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 67 : 날짜와 계산식 처리 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    
+    </style>
+    <script>
+    $(function(){       
+        //아이디가 btn1인 요소를 클릭하면,
+        //1) #res1에 현재 시각을 출력
+        //2) #res2에 아이디가 reg인 곳의 계산식을 처리하여 그 결과인 k를 출력
+        $("#btn1").click(function(){
+            $("#res1").text($.now());       //Date.now()
+            $.globalEval($("#reg").text());
+            $("#res2").text(k);
+        });
+    });
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>날짜와 문자열 계산식 처리 메소드 - now(), glovalEval()</h1>
+        <article class="data">
+            <div id="reg">var k = 1004;</div>
+            <div id="res1"></div>
+            <div id="res2"></div>
+            <button type="button" id="btn1">현재 시각과 계산식의 처리</button>
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>
+```
+
+### html 파싱하기
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 68 : 외부 엘리먼트 HTML로 파싱 메소드</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+    <script>
+    var str = "hello, <b>data binding</b> jQuery."
+    //아이디가 btn1인 요소를 클릭하면,
+    //1) 위 str 데이터를 #res1에 태그 형식으로 출력하시오.
+    $(function(){
+        $("#btn1").click(function(){
+            $("#res1").append($.parseHTML(str));
+        });
+    });
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h1>외부 엘리먼트 HTML로 파싱 메소드 - parseHTML()</h1>
+        <p>불러온 외부 엘리먼트를 포함한 데이터를 HTML로 파싱하는 메소드</p>
+        <article class="data">
+            <div id="res1"></div>
+            <button type="button" id="btn1">외부 텍스트를 포함한 내용을 HTML로 파싱하기</button>
+        </article>
+    </section>
+    <br><hr><br>
+    </div>
+</body>
+</html>
+```
+
+## 배열 데이터와 객체 데이터를 활용하여 구글 차트 만들기
+
+### 구글 차트 - 수직 막대 그래프
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 69 : jQuery 데이터 바인딩과 구글 차트 - 수직 막대</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+    <script>
+    //문서가 로딩되면, 아이디가 chart1인 곳에 구글 차트를 활용하여 야식의 인기도를 나타내는 수직 막대 그래프를 그리시오.
+    //데이터 : 피자:18, 치킨:42, 보쌈:14, 닭발:9, 기타:11
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h2>구글 차트 데이터 설정 - arrayToDataTable()</h2>
+        <h2>구글 차트 수직막대 그래프 - ColumnChart()</h2>
+        <h2>구글 차트 그리기 - draw()</h2>
+        <article class="data">
+            <div id="chart1"></div>
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+        // 차트 패키지 로딩
+        google.charts.load('current', {packages:['corechart']});
+    </script>
+    <script>
+    google.charts.setOnLoadCallback(drawChart);
+    //실제 데이터베이스에서 매핑된 데이터를 배열로 먼저 파싱한 후 접목할 것.
+    function drawChart(){
+        var data = google.visualization.arrayToDataTable([
+            ["음식명", "인기도"], ["피자",18], ["치킨",42], ["보쌈",14], ["닭발",9], ["기타",11]
+        ]);
+        var options = {
+            title : "야식의 인기도", width:600, height:400,
+            bar : { groupWidth: "80%"}, legend : { position:"none" }
+        };
+        var chart = new google.visualization.ColumnChart(document.getElementById("chart1"));
+        chart.draw(data, options);
+    }
+    </script>
+</body>
+</html>
+```
+
+### 구글 차트 - 레이블 설정
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 70 : jQuery 데이터 바인딩과 구글 차트 - 수직 막대의 데이터 레이블</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+    <script>
+    //문서가 로딩되면, 아이디가 chart1인 곳에 구글 차트를 활용하여 야식의 인기도를 나타내는 데이터 레이블 수직 막대 그래프를 그리시오.
+    //데이터 : 피자:18, 치킨:42, 보쌈:14, 닭발:9, 기타:11
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h2>구글 차트 데이터 설정 - arrayToDataTable()</h2>
+        <p>구글 수직 막대 그래프에 데이터 레이블과 값 표시</p>
+        <article class="data">
+            <div id="chart1"></div>
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+        // 차트 패키지 로딩
+        google.charts.load('current', {packages:['corechart']});
+    </script>
+    <script>
+    google.charts.setOnLoadCallback(drawChart);
+    //실제 데이터베이스에서 매핑된 데이터를 배열로 먼저 파싱한 후 접목할 것.
+    function drawChart(){
+        var data = google.visualization.arrayToDataTable([
+            ["음식명", "인기도", {role:'annotation'}, {role:'style'}], ["피자",18,"18","deeppink"], ["치킨",42,"42","red"], ["보쌈",14,"14","deepskyblue"], ["닭발",9,"9","gold"], ["기타",11,"11","green"]
+        ]);
+        var options = {
+            title : "야식의 인기도", width:600, height:400,
+            bar : { groupWidth: "80%"}, legend : { position:"none" }
+        };
+        var chart = new google.visualization.ColumnChart(document.getElementById("chart1"));
+        chart.draw(data, options);
+    }
+    </script>
+</body>
+</html>
+```
+
+### 구글 차트 - 묶은 세로 막대형 그래프
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 71 : jQuery 데이터 바인딩과 구글 차트 - 묶은 세로 막대 그래프</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+    <script>
+    //문서가 로딩되면, 아이디가 chart1인 곳에 구글 차트를 활용하여 묶은 세로 막대 그래프를 그리시오.
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h2>구글 차트 데이터 설정 - arrayToDataTable()</h2>
+        <p>구글 묶은 세로 막대 그래프</p>
+        <article class="data">
+            <div id="chart1"></div>
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+        // 차트 패키지 로딩
+        google.charts.load('current', {packages:['corechart']});
+    </script>
+    <script>
+    google.charts.setOnLoadCallback(drawChart);
+    //실제 데이터베이스에서 매핑된 데이터를 배열로 먼저 파싱한 후 접목할 것.
+    function drawChart(){
+        var data = google.visualization.arrayToDataTable([
+            ["색상","빨","주","노","초","파","남","보"],
+            ["남자",2,3,4,5,4,3,2],
+            ["여자",5,4,3,2,3,4,5]
+        ]);
+        var options = {
+            title : "남녀의 색 선호 그래프", width:800, height:400,
+            colors:["red","orange","yellow","green","blue","navy","purple"],
+            bar:{groupWidth:"80%"},
+            isStacked:false //true-누적형, false-기본형
+        };
+        var chart = new google.visualization.ColumnChart(document.getElementById("chart1"));
+        chart.draw(data, options);
+    }
+    </script>
+</body>
+</html>
+```
+
+### 구글 차트 - 누적 세로 막대형 그래프
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 72 : jQuery 데이터 바인딩과 구글 차트 - 누적 수직 막대 그래프</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+    <script>
+    //문서가 로딩되면, 아이디가 chart1인 곳에 구글 차트를 활용하여 누적 세로 막대 그래프를 그리시오.
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h2>구글 차트 데이터 설정 - arrayToDataTable()</h2>
+        <p>구글 누적 세로 막대 그래프</p>
+        <article class="data">
+            <div id="chart1"></div>
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+        // 차트 패키지 로딩
+        google.charts.load('current', {packages:['corechart']});
+    </script>
+    <script>
+    google.charts.setOnLoadCallback(drawChart);
+    //실제 데이터베이스에서 매핑된 데이터를 배열로 먼저 파싱한 후 접목할 것.
+    function drawChart(){
+        var data = google.visualization.arrayToDataTable([
+            ["년대","짜장면","붕어빵","달고나","풍선껌"],
+            ['1950', 10, 20, 30, 40], // 제목과 항목수를 맞춰주어야 합니다.
+            ['1960', 15, 30, 35, 20],
+            ['1970', 20, 25, 40, 30],
+            ['1980', 10, 30, 20, 50],
+            ['1990', 5, 10, 25, 55]
+        ]);
+        var options = {
+            title : "그 때 그 시절 그 것", width:700, height:400,
+            bar:{groupWidth:"50%"},
+            isStacked:true //true-누적형, false-기본형
+        };
+        var chart = new google.visualization.ColumnChart(document.getElementById("chart1"));
+        chart.draw(data, options);
+    }
+    </script>
+</body>
+</html>
+```
+
+### 구글 차트 - 꺾은 선 그래프
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 73 : jQuery 데이터 바인딩과 구글 차트 - 꺾은 선 그래프</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+    <script>
+    //문서가 로딩되면, 아이디가 chart1인 곳에 구글 차트를 활용하여 꺾은 선 그래프를 그리시오.
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h2>구글 차트 데이터 설정 - arrayToDataTable()</h2>
+        <h2>꺾은 선 그래프 - LineChart()</h2>
+        <p>구글 누적 세로 막대 그래프</p>
+        <article class="data">
+            <div id="chart1"></div>
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+        // 차트 패키지 로딩
+        google.charts.load('current', {packages:['corechart']});
+    </script>
+    <script>
+    google.charts.setOnLoadCallback(drawChart);
+    //실제 데이터베이스에서 매핑된 데이터를 배열로 먼저 파싱한 후 접목할 것.
+    function drawChart(){
+        var data = google.visualization.arrayToDataTable([
+            ['Year', 'Sales', 'Expenses'],
+            ['2004', 1000, 400],
+            ['2005', 1170, 460],
+            ['2006', 660, 1120],
+            ['2007', 1030, 540]
+        ]);
+        var options = {
+            title: '꺾은선 그래프', width: 700, height: 400
+        };
+        var chart = new google.visualization.LineChart(document.getElementById("chart1"));
+        chart.draw(data, options);
+    }
+    </script>
+</body>
+</html>
+```
+
+### 구글 차트 - 원형 그래프
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 74 : jQuery 데이터 바인딩과 구글 차트 - 원형 그래프</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+    <script>
+    //문서가 로딩되면, 아이디가 chart1인 곳에 구글 차트를 활용하여 원형 그래프를 그리시오.
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h2>구글 차트 데이터 설정 - arrayToDataTable()</h2>
+        <h2>원형 그래프 - PieChart()</h2>
+        <article class="data">
+            <div id="chart1"></div>
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+        // 차트 패키지 로딩
+        google.charts.load('current', {packages:['corechart']});
+    </script>
+    <script>
+    google.charts.setOnLoadCallback(drawChart);
+    //실제 데이터베이스에서 매핑된 데이터를 배열로 먼저 파싱한 후 접목할 것.
+    function drawChart(){
+        var data = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['Work', 11],
+            ['Eat', 2],
+            ['Commute', 2],
+            ['Watch TV', 2],
+            ['Sleep', 7]
+        ]);
+        var options = {
+            title: '하루 일과 원형 그래프', width: 700, height: 400
+        };
+        var chart = new google.visualization.PieChart(document.getElementById("chart1"));
+        chart.draw(data, options);
+    }
+    </script>
+</body>
+</html>
+```
+
+### 구글 차트 - 거품형 그래프
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 75 : jQuery 데이터 바인딩과 구글 차트 - 거품형 그래프</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+    <script>
+    //문서가 로딩되면, 아이디가 chart1인 곳에 구글 차트를 활용하여 거품형 그래프를 그리시오.
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h2>구글 차트 데이터 설정 - arrayToDataTable()</h2>
+        <h2>거품형 그래프 - BubbleChart()</h2>
+        <article class="data">
+            <div id="chart1"></div>
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+        // 차트 패키지 로딩
+        google.charts.load('current', {packages:['corechart']});
+    </script>
+    <script>
+    google.charts.setOnLoadCallback(drawChart);
+    //실제 데이터베이스에서 매핑된 데이터를 배열로 먼저 파싱한 후 접목할 것.
+    function drawChart(){
+        var data = google.visualization.arrayToDataTable([
+            ['ID', '기대수명', '출산율', '지역', '인구'],
+            ['CAN', 80.66, 1.67, 'North America', 33739900],
+            ['DEU', 79.84, 1.36, 'Europe', 81902307],
+            ['DNK', 78.6, 1.84, 'Europe', 5523095],
+            ['EGY', 72.73, 2.78, 'Middle East', 79716203],
+            ['GBR', 80.05, 2, 'Europe', 61801570],
+            ['IRN', 72.49, 1.7, 'Middle East', 73137148],
+            ['IRQ', 68.09, 4.77, 'Middle East', 31090763],
+            ['ISR', 81.55, 2.96, 'Middle East', 7485600],
+            ['RUS', 68.6, 1.54, 'Europe', 141850000],
+            ['USA', 78.09, 2.05, 'North America', 307007000]
+        ]);
+        var options = {
+            title: '버블 차트', hAxis: { title: '기대 수명' }, vAxis: { title: '출산율' }, bubble: { textStyle: { fontSize: 11 } }
+        };
+        var chart = new google.visualization.BubbleChart(document.getElementById("chart1"));
+        chart.draw(data, options);
+    }
+    </script>
+</body>
+</html>
+```
+
+### 구글 차트 - 도넛형 그래프
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 76 : jQuery 데이터 바인딩과 구글 차트 - 도넛형 그래프</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+    <script>
+    //문서가 로딩되면, 아이디가 chart1인 곳에 구글 차트를 활용하여 도넛형 그래프를 그리시오.
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h2>구글 차트 데이터 설정 - arrayToDataTable()</h2>
+        <h2>도넛형 그래프 - PieChart()</h2>
+        <article class="data">
+            <div id="chart1"></div>
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+        // 차트 패키지 로딩
+        google.charts.load('current', {packages:['corechart']});
+    </script>
+    <script>
+    google.charts.setOnLoadCallback(drawChart);
+    //실제 데이터베이스에서 매핑된 데이터를 배열로 먼저 파싱한 후 접목할 것.
+    function drawChart(){
+        var data = google.visualization.arrayToDataTable([
+            ['항목', '하루당 할애시간'],
+            ['일하는 시간', 11],
+            ['식사 시간', 2],
+            ['출퇴근 시간', 2],
+            ['TV 시청 시간', 2],
+            ['수면 시간', 7]
+        ]);
+        var options = {
+            title: '도넛형 차트', pieHole: 0.4,
+        };
+        var chart = new google.visualization.PieChart(document.getElementById("chart1"));
+        chart.draw(data, options);
+    }
+    </script>
+</body>
+</html>
+```
+
+### 구글 차트 - 가로 막대 그래프
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 77 : jQuery 데이터 바인딩과 구글 차트 - 가로 막대 그래프</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+    <script>
+    //문서가 로딩되면, 아이디가 chart1인 곳에 구글 차트를 활용하여 가로 막대 그래프를 그리시오.
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h2>구글 차트 데이터 설정 - arrayToDataTable()</h2>
+        <h2>가로 막대 그래프 - BarChart()</h2>
+        <article class="data">
+            <div id="chart1"></div>
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+        // 차트 패키지 로딩
+        google.charts.load('current', {packages:['corechart']});
+    </script>
+    <script>
+    google.charts.setOnLoadCallback(drawChart);
+    //실제 데이터베이스에서 매핑된 데이터를 배열로 먼저 파싱한 후 접목할 것.
+    function drawChart(){
+        var data = google.visualization.arrayToDataTable([
+            ["Element", "Density", { role: "style" }],
+            ["Copper", 8.94, "#b87333"],
+            ["Silver", 10.49, "silver"],
+            ["Gold", 19.30, "gold"],
+            ["Platinum", 21.45, "color: #e5e4e2"]
+        ]);
+        var view = new google.visualization.DataView(data);
+        view.setColumns([0, 1,
+        {
+            calc: "stringify",
+            sourceColumn: 1,
+            type: "string",
+            role: "annotation"
+        },
+        2]);
+        var options = { title: "가로막대형 그래프", width: 600, height: 400,
+            bar: { groupWidth: "95%" },legend: { position: "none" },
+        };
+        var chart = new google.visualization.BarChart(document.getElementById("chart1"));
+        chart.draw(view, options);
+    }
+    </script>
+</body>
+</html>
+```
+
+### 구글 차트 - 이중 축 혼합형 그래프
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 78 : jQuery 데이터 바인딩과 구글 차트 - 이중 축 혼합형 그래프</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+    <script>
+    //문서가 로딩되면, 아이디가 chart1인 곳에 구글 차트를 활용하여 이중 축 혼합형 그래프를 그리시오.
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h2>구글 차트 데이터 설정 - arrayToDataTable()</h2>
+        <h2>이중 축 혼합형 그래프 - ComboChart()</h2>
+        <article class="data">
+            <div id="chart1"></div>
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+        // 차트 패키지 로딩
+        google.charts.load('current', {packages:['corechart']});
+    </script>
+    <script>
+    google.charts.setOnLoadCallback(drawChart);
+    //실제 데이터베이스에서 매핑된 데이터를 배열로 먼저 파싱한 후 접목할 것.
+    function drawChart(){
+        var data = google.visualization.arrayToDataTable([
+            ['Month', 'Bolivia', 'Ecuador', 'Madagascar', 'Papua New Guinea', 'Rwanda', 'Average'],
+            ['2004/05', 165, 938, 522, 998, 450, 614.6],
+            ['2005/06', 135, 1120, 599, 1268, 288, 682],
+            ['2006/07', 157, 1167, 587, 807, 397, 623],
+            ['2007/08', 139, 1110, 615, 968, 215, 609.4],
+            ['2008/09', 136, 691, 629, 1026, 366, 569.6]
+        ]);
+        var options = { 
+            title: '이중축 혼합형 그래프',
+            vAxis: { title: 'Cups' },
+            hAxis: { title: 'Month' },
+            seriesType: 'bars',
+            series: { 5: { type: 'line' } }
+        };
+        var chart = new google.visualization.ComboChart(document.getElementById("chart1"));
+        chart.draw(data, options);
+    }
+    </script>
+</body>
+</html>
+```
+
+### 구글 차트 - 캘린더 그래프
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 78 : jQuery 데이터 바인딩과 구글 차트 - 달력형 그래프</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+    <script>
+    //문서가 로딩되면, 아이디가 chart1인 곳에 구글 차트를 활용하여 캘린더 그래프를 그리시오.
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h2>구글 차트 데이터 설정 - arrayToDataTable()</h2>
+        <h2>캘린더 그래프 - Calendar()</h2>
+        <article class="data">
+            <div id="chart1"></div>
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+        // 차트 패키지 로딩
+        google.charts.load('current', {packages:['calendar']});
+    </script>
+    <script>
+    google.charts.setOnLoadCallback(drawChart);
+    //실제 데이터베이스에서 매핑된 데이터를 배열로 먼저 파싱한 후 접목할 것.
+    function drawChart(){
+        var data = new google.visualization.DataTable();
+        data.addColumn({ type: 'date', id: 'Date' });
+       data.addColumn({ type: 'number', id: 'Won/Loss' });
+       data.addRows([
+          [ new Date(2012, 3, 13), 37032 ],
+          [ new Date(2012, 3, 14), 38024 ],
+          [ new Date(2012, 3, 15), 38024 ],
+          [ new Date(2012, 3, 16), 38108 ],
+          [ new Date(2012, 3, 17), 38229 ],
+          // Many rows omitted for brevity.
+          [ new Date(2013, 9, 4), 38177 ],
+          [ new Date(2013, 9, 5), 38705 ],
+          [ new Date(2013, 9, 12), 38210 ],
+          [ new Date(2013, 9, 13), 38029 ],
+          [ new Date(2013, 9, 19), 38823 ],
+          [ new Date(2013, 9, 23), 38345 ],
+          [ new Date(2013, 9, 24), 38436 ],
+          [ new Date(2013, 9, 30), 38447 ]
+        ]);
+        var options = {
+            title: "달력형 그래프",
+            height: 350,
+        };
+        var chart = new google.visualization.Calendar(document.getElementById("chart1"));
+        chart.draw(data, options);
+    }
+    </script>
+</body>
+</html>
+```
+
+
+### 구글 차트 - 원통형 그래프
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 80 : jQuery 데이터 바인딩과 구글 차트 - 원통형 그래프</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script> 
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
+    <style>
+    .container { clear:both; width:1000px; margin:20px auto; } 
+    .container:after { content:""; display:block; clear:both; }
+    .data { clear: both; }
+    .data:after { content:""; display:block; clear:both; } 
+    </style>
+    <script>
+    //문서가 로딩되면, 아이디가 chart1인 곳에 구글 차트를 활용하여 원통형 그래프를 그리시오.
+    </script>
+</head>
+<body>
+    <section class="container">
+        <h2>구글 차트 데이터 설정 - arrayToDataTable()</h2>
+        <h2>원통형 그래프 - CandlestickChart()</h2>
+        <article class="data">
+            <div id="chart1"></div>
+        </article>
+    </section>
+    <br><hr><br>
+    <script>
+        // 차트 패키지 로딩
+        google.charts.load('current', {packages:['corechart']});
+    </script>
+    <script>
+    google.charts.setOnLoadCallback(drawChart);
+    //실제 데이터베이스에서 매핑된 데이터를 배열로 먼저 파싱한 후 접목할 것.
+    function drawChart(){
+        var data = google.visualization.arrayToDataTable([
+            ['Mon', 20, 28, 38, 45],
+            ['Tue', 31, 38, 55, 66],
+            ['Wed', 50, 55, 77, 80],
+            ['Thu', 77, 77, 66, 50],
+            ['Fri', 68, 66, 22, 15]
+        ], true);
+
+        var options = { title:"원통형 그래프",
+        legend:'none', width:1000, height:600
+        };
+        var chart = new google.visualization.CandlestickChart(document.getElementById("chart1"));
+        chart.draw(data, options);
+    }
+    </script>
+</body>
+</html>
+```
 
 <br><hr><br>
 

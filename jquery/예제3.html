@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img { width: 300px; height: auto;}
+        .lst li { display: none; clear: both; list-style: none;}
+    </style>
+    <script src="./jquery-1.12.4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".lst li").each(function(index){
+                $(this).delay(index*500).slideDown(600);
+            });
+            $(".btn1").click(function(){
+                $(".lst li").stop().fadeIn(2000);
+                $(".txt").text("실행중");
+            });
+            $(".btn2").click(function(){
+                $(".lst li").stop().fadeOut(1000);
+                $(".txt").text("실행중지");
+            });
+            $(".btn3").click(function(){
+                $(".lst li").stop().fadeToggle(4000);
+                var dp = $(".lst li").css("display");
+                if(dp=="none"){
+                    $(".txt").text("실행중지");
+                } else {
+                    $(".txt").text("실행중");
+                }
+            });
+        });
+    </script> 
+</head>
+<body>
+    <section class="container">
+        <article class="data">
+            <div class="btng">
+                <button class="btn1">show</button>
+                <button class="btn2">hide</button>
+                <button class="btn3">toggle</button>
+            </div>
+            <ul class="lst">
+                <li><img src="./img1.jpg" alt=""></li>
+                <li><img src="./img2.jpg" alt=""></li>
+                <li><img src="./img3.jpg" alt=""></li>
+            </ul>
+            <div class="txt">버튼을 누르면 효과가 실행됨.</div>
+        </article>
+    </section>
+</body>
+</html>
